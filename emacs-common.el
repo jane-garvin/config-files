@@ -1,0 +1,548 @@
+;; My emacs configuration across all machines
+
+;;;; ----- memory -----
+
+;; Give emacs the megabytes it's always wanted
+(setq gc-cons-threshold (* 100 1024 1024))
+
+;;;; ----- server -----
+
+;; start emacs-server if not already running
+(if (not (boundp 'server-process))
+    (server-start))
+
+;;;; ----- packages -----
+
+;; grab emacs packages from repositories
+(require 'package)
+(setq package-archives
+      '(("gnu"   . "https://elpa.gnu.org/packages/")
+        ("melpa" . "https://melpa.org/packages/")))
+(setq-default package-enable-at-startup t)
+(package-initialize)
+
+;; Use use-package to automatically install certain packages
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+(require 'use-package)
+
+;; Install packages if necessary
+(require 'use-package-ensure)
+(setq use-package-always-ensure t)
+
+;; Automatically refresh package contents on a regular basis
+(use-package auto-package-update
+  :config
+  (setq auto-package-update-delete-old-versions t)
+  (setq auto-package-update-hide-results t)
+  (auto-package-update-maybe))
+
+;;;; ----- directories -----
+
+;; go home!
+(setq default-directory (concat (getenv "HOME") "/"))
+
+;; Dired-du-mode is buggy and hangs at 50% even on an empty directory.
+;; Try it again later.
+;;(use-package dired-du
+;;  :init
+;;  ;; Use human-readable size formats.
+;;  (setq dired-du-size-format t))
+
+;;;; ----- keys and shortcuts -----
+
+;; listen to modified arrows from terminal
+(define-key function-key-map "\e[1;2A" [S-up])
+(define-key function-key-map "\e[1;2B" [S-down])
+(define-key function-key-map "\e[1;2C" [S-right])
+(define-key function-key-map "\e[1;2D" [S-left])
+(define-key function-key-map "\e[5A" [C-up])
+(define-key function-key-map "\e[5B" [C-down])
+(define-key function-key-map "\e[5C" [C-right])
+(define-key function-key-map "\e[5D" [C-left])
+(define-key function-key-map "\e[1;5A" [C-up])
+(define-key function-key-map "\e[1;5B" [C-down])
+(define-key function-key-map "\e[1;5C" [C-right])
+(define-key function-key-map "\e[1;5D" [C-left])
+(define-key function-key-map "\e[1;6A" [S-C-up])
+(define-key function-key-map "\e[1;6B" [S-C-down])
+(define-key function-key-map "\e[1;6C" [S-C-right])
+(define-key function-key-map "\e[1;6D" [S-C-left])
+
+;; I want C-x k to kill the current buffer without asking
+(global-set-key "\C-xk" 'kill-this-buffer)
+;; I use bury-buffer a lot; add a shortcut
+(global-set-key "\C-xy" 'bury-buffer)
+
+;; FIXME: maybe rethink these bindings.
+;; f1 starts shell
+(global-set-key [f1] 'shell)
+;; f2 default maps to something I never want to use
+(global-set-key [f2] 'ignore)
+;; go to line
+(global-set-key [f3] 'goto-line)
+;; f4 default maps to something I never want to use
+(global-set-key [f4] 'ignore)
+;; compile program
+(global-set-key [f5] 'compile)
+;; open a new eshell terminal
+(defun eshell-new () (interactive) (eshell 1))
+(global-set-key [f6] 'eshell-new)
+;; toggle colors
+(global-set-key [f7] 'font-lock-mode)
+
+;; use control-arrow keys to move between windows
+(windmove-default-keybindings 'control)
+
+;; use ace-window for even more window control
+(use-package ace-window
+  :ensure t
+  :init
+    (setq aw-keys '(?a ?s ?d ?f ?j ?k ?l ?o))
+    (global-set-key (kbd "C-x o") 'ace-window)
+  :diminish ace-window-mode
+  :config
+    (set-face-attribute
+     'aw-leading-char-face nil
+     :foreground "Yellow"
+     :weight 'bold
+     :height 3.0))
+
+;; make ⌥-up and ⌥-down move lines up and down
+(defun transpose-line-up () (interactive)
+  (progn
+    (transpose-lines 1)
+    (forward-line -2)))
+(defun transpose-line-down () (interactive)
+  (progn
+    (forward-line 1)
+    (transpose-lines 1)
+    (forward-line -1)))
+(global-set-key (kbd "M-<up>") 'transpose-line-up)
+(global-set-key (kbd "M-<down>") 'transpose-line-down)
+
+;; Use buffer-move: use shift-ctrl-arrows to move buffers between windows
+(use-package buffer-move
+  :bind (([S-C-up] . 'buf-move-up)
+	 ([S-C-down] . 'buf-move-down)
+	 ([S-C-right] . 'buf-move-right)
+	 ([S-C-left] . 'buf-move-left)
+	 ))
+
+;; make tab first indent, then complete (instead of just indenting)
+(setq-default tab-always-indent 'complete)
+
+;; By default fn-up and ⌥-up are both mapped scroll-up-command. Give ⌘-up
+;; and ⌘-down more useful bindings.
+(global-set-key [s-up] 'scroll-up-line)
+(global-set-key [s-down] 'scroll-down-line)
+
+(use-package which-key
+  :ensure t
+  :defer 10
+  :diminish which-key-mode
+  :config
+  (which-key-setup-side-window-right-bottom)
+  (which-key-mode 1))
+
+(defun insert-single-quotes (p)
+  "Insert a pair of unicode rounded quotes, `SINGLE TURNED COMMA
+QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
+  (interactive "P")
+  (insert-pair p 8216 8217))
+
+(defun insert-double-quotes (p)
+  "Insert a pair of unicode double rounded quotes."
+  (interactive "P")
+  (insert-pair p 8220 8221))
+
+(bind-key "M-C-'"  #'insert-single-quotes)
+(bind-key "M-C-\"" #'insert-double-quotes)
+
+;;;; ----- display -----
+
+;; UTF-8 as default encoding
+(set-language-environment "UTF-8")
+(set-default-coding-systems 'utf-8)
+
+;; my favorite emacs colors
+(if (or (not (eq window-system nil))
+        (string= (getenv "TERM") "xterm-256color"))
+    (progn
+      (set-face-background 'default "DarkSlateGray")
+      (set-face-foreground 'default "Wheat")
+      (set-face-background 'cursor "Orchid")
+      (set-face-foreground 'font-lock-comment-face "Thistle")
+      (set-face-foreground 'font-lock-string-face "LightPink")
+      ))
+
+;; By default emacs gives up and shows "??" if lines are too long. I want emacs
+;; to try harder to find line numbers.
+(setq-default line-number-display-limit-width 200000)
+;; no startup screen
+(setq-default inhibit-startup-screen t)
+;; no tool bar or scroll bar
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+;; Shhhhhh. Don't disturb the neighbors
+(setq-default ring-bell-function nil)
+(setq-default visible-bell t)
+;; always show line number and column number in mode line
+(line-number-mode 1)
+(column-number-mode 1)
+;; show the time in the mode line, but don't show the load average. emacs
+;; display-time includes load average by default for some reason
+(setq-default display-time-default-load-average nil)
+(display-time-mode 1)
+;; Use linum-mode by default for programming modes
+(use-package linum
+  :init
+  (add-hook 'prog-mode-hook 'linum-mode)
+  (add-hook 'linum-mode-hook (lambda () (set-face-attribute 'linum nil :height 110)))
+
+  :config
+  (defun linum-fringe-toggle ()
+    "Toggles the line numbers as well as the fringe."    (interactive)
+    (cond (linum-mode (fringe-mode '(0 . 0))
+                      (linum-mode -1))
+          (t          (fringe-mode '(8 . 0))
+                      (linum-mode 1)))))
+;; show trailing whitespace
+(setq-default show-trailing-whitespace t)
+
+;;;; ----- eshell -----
+
+;;;; I don't use eshell anymore, but might as well keep the settings around.
+
+(use-package eshell
+  :init
+  (setq eshell-buffer-shorthand t
+        eshell-scroll-to-bottom-on-input 'all
+        eshell-error-if-no-glob t
+        eshell-hist-ignoredups t
+        eshell-save-history-on-exit t
+        eshell-prefer-lisp-functions nil
+        eshell-destroy-buffer-when-process-dies t))
+
+;; aliases
+(add-hook 'eshell-mode-hook (lambda ()
+  (eshell/alias "c" "cp -i $*")
+  (eshell/alias "m" "mv -i $*")
+  (eshell/alias "d" "dirs -pv")
+  (eshell/alias "e" "find-file $1")
+  (eshell/alias "q" "exit")
+  
+  (eshell/alias "gd" "magit-diff-unstaged")
+  (eshell/alias "gds" "magit-diff-staged")
+  (eshell/alias "gf" "magit-fetch-all")
+  (eshell/alias "gl" "magit-log")
+  (eshell/alias "gs" "magit-status")
+  ))
+
+(defun eshell/xyzzy () (eshell/echo "A hollow voice says \"Fool.\""))
+
+;; Plan-9-like shell behavior. Try this out some time.
+;(require 'em-smart)
+
+;; In eshell, ignore case when tab-completing files
+(setq-default eshell-cmpl-ignore-case t)
+;; Expand variables when I hit tab
+(setq-default eshell-cmpl-expand-before-complete t)
+
+;;;; ----- terminal and shells -----
+
+;; We're in emacs; no need for programs like less
+(setenv "PAGER" "cat")
+
+;; By default, eshell doesn't know about the nice executables installed by
+;; MacPorts in /opt/local/bin. Use what I already have in .zshrc.
+(use-package exec-path-from-shell
+  :init (exec-path-from-shell-initialize))
+
+;; sudo-edit is useful for editing system files
+(require 'sudo-edit)
+
+;; use case-insensitive file completion
+(setq-default pcomplete-ignore-case t)
+
+;; don't limit terminal output
+(setq-default term-buffer-maximum-size 0)
+;; Use Emacs terminfo, not system terminfo. This prevents problems with things
+;; not displaying properly in ansi-term.
+(setq-default system-uses-terminfo nil)
+;; When running M-x compile, jump to first error
+(setq-default compilation-auto-jump-to-first-error t)
+;; don't allow me to clobber prompt
+(setq-default comint-prompt-read-only t)
+;; scroll to bottom on input
+(setq-default comint-scroll-to-bottom-on-input t)
+;; follow output
+(setq-default comint-move-point-for-output t)
+;; In comint, keep the same windmove bindings of C-up and C-down used everywhere
+;; else; use M-up and M-down for previous and next input instead
+(define-key comint-mode-map (kbd "M-<up>") 'comint-previous-input)
+(define-key comint-mode-map (kbd "M-<down>") 'comint-next-input)
+(define-key comint-mode-map (kbd "C-<up>") 'windmove-up)
+(define-key comint-mode-map (kbd "C-<down>") 'windmove-down)
+;; Make M-. do insert-last-word like it does in terminal zsh
+(define-key comint-mode-map (kbd "M-.") 'comint-insert-previous-argument)
+
+;;;; ----- saving desktop and configuration -----
+
+;; don't bug me about running processes when exiting emacs
+(setq-default confirm-kill-processes nil)
+;; save active buffers periodically
+(desktop-save-mode 1)
+;; always use the home desktop no matter where the current directory is
+(setq-default desktop-path (list "~"))
+;; save active minibuffer history periodically
+(savehist-mode 1)
+;; If emacs didn't exit cleanly because of a crash, a power outage, etc., it
+;; will leave a stale desktop lock file. When emacs starts again, it will think
+;; the desktop file is locked, even though the PID it thinks is locking the file
+;; doesn't exist anymore. Delete the lock file on startup if the owning PID is
+;; no longer alive.
+(defun my-remove-stale-lock-file (dir)
+  (let ((pid (desktop-owner dir)))
+    (when pid
+      (let ((infile nil)
+            (destination nil)
+            (display nil))
+        (unless (= (call-process "ps" infile destination display "-p"
+                                 (number-to-string pid)) 0)
+          (let ((lock-fn (desktop-full-lock-name dir)))
+            (delete-file lock-fn)))))))
+(my-remove-stale-lock-file desktop-path)
+;; Make sure files are saved if Emacs goes out of focus
+(defun save-all ()
+  "Save all dirty buffers without asking for confirmation."
+  (interactive)
+  (save-some-buffers t))
+(add-hook 'focus-out-hook 'save-all)
+;; Also remember where my cursor was
+(save-place-mode 1)
+
+;;;; ----- code (rtags and git) -----
+
+;; rtags is throwing "Got Diagnostics Error" during init. Remove until I fix it.
+;;(require 'rtags)
+
+;; ensure that we use only rtags checking
+;; https://github.com/Andersbakken/rtags#optional-1
+;; (defun setup-flycheck-rtags ()
+;;   (interactive)
+;;   (flycheck-select-checker 'rtags)
+;;   ;; RTags creates more accurate overlays.
+;;   (setq-local flycheck-highlighting-mode nil)
+;;   (setq-local flycheck-check-syntax-automatically nil))
+
+;; ;; only run this if rtags is installed
+;; (when (require 'rtags nil :noerror)
+;;   ;; make sure you have company-mode installed
+;;   (require 'company)
+;;   (define-key c-mode-base-map (kbd "M-.")
+;;     (function rtags-find-symbol-at-point))
+;;   (define-key c-mode-base-map (kbd "M-,")
+;;     (function rtags-find-references-at-point))
+;;   ;; install standard rtags keybindings. Do M-. on the symbol below to
+;;   ;; jump to definition and see the keybindings.
+;;   (rtags-enable-standard-keybindings)
+;;   ;; comment this out if you don't have or don't use helm
+;;   (setq rtags-use-helm t)
+;;   ;; company completion setup
+;;   (setq rtags-autostart-diagnostics t)
+;;   (rtags-diagnostics)
+;;   (setq rtags-completions-enabled t)
+;;   (push 'company-rtags company-backends)
+;;   (global-company-mode)
+;;   (define-key c-mode-base-map (kbd "<C-tab>") (function company-complete))
+;;   ;; use rtags flycheck mode -- clang warnings shown inline
+;;   (require 'flycheck-rtags)
+;;   ;; c-mode-common-hook is also called by c++-mode
+;;   (add-hook 'c-mode-common-hook #'setup-flycheck-rtags))
+
+(use-package magit
+  :ensure t
+  :commands magit-status magit-blame
+  :config
+  (setq magit-branch-arguments nil
+        ;; use ido to look for branches
+        magit-completing-read-function 'magit-ido-completing-read
+        ;; don't put "origin-" in front of new branch names by default
+        magit-default-tracking-name-function 'magit-default-tracking-name-branch-only
+        magit-push-always-verify nil
+        ;; Get rid of the previous advice to go into fullscreen
+        magit-restore-window-configuration t)
+
+  :bind ("C-x g s" . magit-status)
+  :bind ("C-x g l" . magit-log))
+
+(use-package flycheck
+  :init (global-flycheck-mode))
+
+;;;; ----- projects and spaces -----
+
+(use-package projectile
+  :ensure t
+  :init (projectile-global-mode 1))
+
+(define-key projectile-mode-map (kbd "M-p") 'projectile-command-map)
+
+;; disabling perspective because it doesn't work properly with desktop-save; on
+;; init it's showing 'Error (frameset): Wrong type argument: perspective,
+;; "Unprintable entity"'
+
+;; (use-package perspective
+;;   :ensure t
+;;   :bind ("C-x x x" . persp-switch-last)
+;;   :init (persp-mode +1)
+
+;;   (use-package persp-projectile
+;;     :ensure t ))
+
+
+;;;; ----- misc -----
+
+;; expand-region enlarges the region by semantic units
+(use-package expand-region
+  :bind ("C-=" . er/expand-region))
+;; C'mon, emacs, there's only one space between sentences.
+(setq-default sentence-end-double-space nil)
+;; use spaces to indent, not tabs
+(setq-default indent-tabs-mode nil)
+;; 80 columns, not 70
+(setq-default fill-column 80)
+;; automatically update files when changed
+(setq-default global-auto-revert-mode t)
+;; large files are OK
+(setq-default large-file-warning-threshold nil)
+;; find files case-insensitively
+(setq-default read-file-name-completion-ignore-case t)
+;; find buffer names case-insensitively
+(setq-default completion-ignore-case t)
+;; store more undo data
+(setq-default undo-limit 300000)
+(setq-default undo-strong-limit 600000)
+;; ~ files are annoying and that's what system backups are for
+(setq make-backup-files nil)
+;; I don't want to have to type "yes"
+(fset 'yes-or-no-p 'y-or-n-p)
+;; keep point in the middle when scrolling
+(setq-default scroll-preserve-screen-position t)
+;; enable emacs to use the Mac system clipboard for cut, copy, and paste
+(defun paste-to-osx (text &optional push)
+  (interactive)
+  (let ((process-connection-type nil))
+    (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
+      (process-send-string proc text)
+      (process-send-eof proc))))
+(setq interprogram-cut-function 'paste-to-osx)
+;; Use linux indent style with 2-space indent
+(setq-default c-default-style "linux")
+(setq-default c-basic-offset 2)
+;; 2-space indent for shells, too
+(setq-default sh-basic-offset 2)
+;; When I use C-k to kill the whole line, I want to include the trailing newline
+(setq-default kill-whole-line t)
+
+;; rebalance window sizes automatically
+(setq-default window-combination-resize t)  ; this is for Emacs 24+
+;; For Emacs <24, we need something more elaborate:
+(if (or (string-match "GNU Emacs 22" (version))
+        (string-match "GNU Emacs 23" (version)))
+    (progn
+      (defadvice split-window-horizontally (after rebalance-windows activate)
+        (balance-windows))
+      (ad-activate 'split-window-horizontally)
+      (defadvice delete-window
+          (after rebalance-windows activate)
+        (balance-windows))
+      (ad-activate 'delete-window)))
+
+;; use the mouse
+(require 'mouse)
+(xterm-mouse-mode t)
+(defun track-mouse (e))
+
+;; use objc-mode for Objective-C++ files (close enough)
+(add-to-list 'auto-mode-alist '("\\.mm\\'" . objc-mode))
+;; use c++-mode for Metal files (close enough)
+(add-to-list 'auto-mode-alist '("\\.metal\\'" . c++-mode))
+
+;; ;; I don't use org-mode anymore
+;; (if (string-match "GNU Emacs 22" (version))
+;;   (progn
+;;     (add-to-list 'load-path "~/Dropbox/software/emacs-packages/org-7.7/lisp")
+;;     (require 'org-install)
+;;     (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+;;     (global-set-key "\C-cl" 'org-store-link)
+;;     (global-set-key "\C-cc" 'org-capture)
+;;     (global-set-key "\C-ca" 'org-agenda)
+;;     (global-set-key "\C-cb" 'org-iswitchb)
+;; ;;    (setq-default org-replace-disputed-keys t)
+;; ;;    (setq-default org-startup-indented t)
+;;     (add-hook 'org-mode-hook
+;;       (lambda ()
+;;         (local-set-key [A-up] 'org-move-subtree-up)
+;;         (local-set-key [A-down] 'org-move-subtree-down)))
+;;     ; tell org-mode not to steal S-C-arrows
+;;     (defun org-remove-bindings ()
+;;       (define-key org-mode-map [S-C-up] nil)
+;;       (define-key org-mode-map [S-C-down] nil)
+;;       (define-key org-mode-map [S-C-right] nil)
+;;       (define-key org-mode-map [S-C-left] nil))
+;;     (eval-after-load "org" '(org-remove-bindings))
+;;     ))
+
+;; use ido-mode and related extras
+;; I don't like ido
+;; (setq ido-enable-flex-matching t)
+;; (setq ido-everywhere t)
+;; (ido-mode 1)
+;; (setq ido-use-filename-at-point 'guess)
+;; (use-package ido-vertical-mode
+;;   :init
+;;   (ido-vertical-mode 1))
+;; (use-package flx-ido
+;;   :init
+;;   (flx-ido-mode 1)
+;;   :custom
+;;   (ido-use-faces nil))
+
+;; use graphviz mode for dot files
+(use-package graphviz-dot-mode)
+
+;; Stolen from Howard: make C-a move to beginning of stuff on the line. Hit C-a
+;; again to move to the actual beginning of the line.
+(defun smarter-move-beginning-of-line (arg)
+  "Move point back to indentation of beginning of line.
+
+Move point to the first non-whitespace character on this line.
+If point is already there, move to the beginning of the line.
+Effectively toggle between the first non-whitespace character and
+the beginning of the line.
+
+If ARG is not nil or 1, move forward ARG - 1 lines first.  If
+point reaches the beginning or end of the buffer, stop there."
+  (interactive "^p")
+  (setq arg (or arg 1))
+
+  ;; Move lines first
+  (when (/= arg 1)
+    (let ((line-move-visual nil))
+      (forward-line (1- arg))))
+
+  (let ((orig-point (point)))
+    (back-to-indentation)
+    (when (= orig-point (point))
+      (move-beginning-of-line 1))))
+
+;; remap C-a to ‘smarter-move-beginning-of-line’
+(global-set-key [remap move-beginning-of-line] 'smarter-move-beginning-of-line)
+
+;; By default s-left and s-right map to ns-next-frame and ns-previous-frame,
+;; which is way too easy to mistype. If I want to switch frames, that's what s-`
+;; is for.
+(global-unset-key [s-left])
+(global-unset-key [s-right])
