@@ -261,7 +261,7 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
   :init (exec-path-from-shell-initialize))
 
 ;; sudo-edit is useful for editing system files
-(require 'sudo-edit)
+(use-package sudo-edit)
 
 ;; use case-insensitive file completion
 (setq-default pcomplete-ignore-case t)
@@ -381,9 +381,6 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
 (use-package flycheck
   :init (global-flycheck-mode))
 
-(require 'haskell-mode)
-(require 'haskell-interactive-mode)
-(require 'haskell-process)
 (use-package haskell-mode
   :init
   (setq-default haskell-process-auto-import-loaded-modules t)
@@ -396,7 +393,8 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
   ("C-c C-i" . haskell-process-do-info)
   :hook
   (haskell-mode . interactive-haskell-mode))
-
+(require 'haskell-interactive-mode)
+(require 'haskell-process)
 (use-package hlint-refactor
   :init
   (setq-default hs-lint-replace-with-suggestions nil)
