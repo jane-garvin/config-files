@@ -381,6 +381,29 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
 (use-package flycheck
   :init (global-flycheck-mode))
 
+(require 'haskell-mode)
+(require 'haskell-interactive-mode)
+(require 'haskell-process)
+(use-package haskell-mode
+  :init
+  (setq-default haskell-process-auto-import-loaded-modules t)
+  (setq-default haskell-process-log t)
+  (setq-default haskell-process-suggest-remove-import-lines t)
+  (setq-default haskell-tags-on-save t)
+  :bind
+  ("C-c C-l" . haskell-process-load-or-reload)
+  ("C-c C-t" . haskell-process-do-type)
+  ("C-c C-i" . haskell-process-do-info)
+  :hook
+  (haskell-mode . interactive-haskell-mode))
+
+(use-package hlint-refactor
+  :init
+  (setq-default hs-lint-replace-with-suggestions nil)
+  (setq-default hs-lint-replace-without-ask t)
+  :bind
+  ("C-c l" . hs-lint))
+
 ;;;; ----- projects and spaces -----
 
 (use-package projectile
@@ -470,7 +493,16 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
 ;; use c++-mode for Metal files (close enough)
 (add-to-list 'auto-mode-alist '("\\.metal\\'" . c++-mode))
 
-;; ;; I don't use org-mode anymore
+(use-package org
+  :init
+  (setq-default org-hide-leading-stars t
+                org-odd-levels-only t
+                org-special-ctrl-a/e t
+                org-return-follows-link t
+                org-indent-mode t
+                org-hide-emphasis-markers t))
+
+;; ;; old org-mode
 ;; (if (string-match "GNU Emacs 22" (version))
 ;;   (progn
 ;;     (add-to-list 'load-path "~/Dropbox/software/emacs-packages/org-7.7/lisp")
