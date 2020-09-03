@@ -208,8 +208,8 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
                       (linum-mode -1))
           (t          (fringe-mode '(8 . 0))
                       (linum-mode 1)))))
-;; show trailing whitespace
-(setq-default show-trailing-whitespace t)
+;; show trailing whitespace for code buffers
+(add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t)))
 
 ;;;; ----- eshell -----
 
