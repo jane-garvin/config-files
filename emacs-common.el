@@ -232,7 +232,7 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
   (eshell/alias "d" "dirs -pv")
   (eshell/alias "e" "find-file $1")
   (eshell/alias "q" "exit")
-  
+
   (eshell/alias "gd" "magit-diff-unstaged")
   (eshell/alias "gds" "magit-diff-staged")
   (eshell/alias "gf" "magit-fetch-all")
