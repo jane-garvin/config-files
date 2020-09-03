@@ -16,8 +16,8 @@
 ;; grab emacs packages from repositories
 (require 'package)
 (setq package-archives
-      '(("gnu"   . "https://elpa.gnu.org/packages/")
-        ("melpa" . "https://melpa.org/packages/")))
+      '(("gnu"          . "https://elpa.gnu.org/packages/")
+        ("melpa-stable" . "https://melpa.org/packages/")))
 (setq-default package-enable-at-startup t)
 (package-initialize)
 
