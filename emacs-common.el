@@ -177,6 +177,10 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
       (set-face-foreground 'font-lock-string-face "LightPink")
       ))
 
+;; make the background indicate whether emacs is in focus
+(add-hook 'focus-out-hook (lambda () (set-face-background 'default "DimGray")))
+(add-hook 'focus-in-hook (lambda () (set-face-background 'default "DarkSlateGray")))
+
 ;; By default emacs gives up and shows "??" if lines are too long. I want emacs
 ;; to try harder to find line numbers.
 (setq-default line-number-display-limit-width 200000)
