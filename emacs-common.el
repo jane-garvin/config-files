@@ -160,6 +160,14 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
 (bind-key "M-C-'"  #'insert-single-quotes)
 (bind-key "M-C-\"" #'insert-double-quotes)
 
+;; From Howard: fancy newline
+(defun newline-at-end-of-current-line ()
+  "Insert a newline character, but from the end of the current line."
+  (interactive)
+  (move-end-of-line 1)
+  (newline-and-indent))
+(global-set-key (kbd "M-RET") 'newline-at-end-of-current-line)
+
 ;;;; ----- display -----
 
 ;; UTF-8 as default encoding
@@ -580,3 +588,4 @@ point reaches the beginning or end of the buffer, stop there."
 ;; is for.
 (global-unset-key [s-left])
 (global-unset-key [s-right])
+
