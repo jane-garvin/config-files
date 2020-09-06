@@ -589,3 +589,10 @@ point reaches the beginning or end of the buffer, stop there."
 (global-unset-key [s-left])
 (global-unset-key [s-right])
 
+;; Use iy-go-to-char to navigate to specific characters
+(use-package iy-go-to-char
+  :ensure t
+  :bind
+  ("C-`" . iy-go-to-char)
+  ("<f13>" . iy-go-to-char)
+  ("C-~" . iy-go-to-char-backward))
