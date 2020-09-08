@@ -504,13 +504,21 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
 (add-to-list 'auto-mode-alist '("\\.metal\\'" . c++-mode))
 
 (use-package org
+  :ensure t
   :init
   (setq-default org-hide-leading-stars t
                 org-odd-levels-only t
                 org-special-ctrl-a/e t
                 org-return-follows-link t
                 org-indent-mode t
-                org-hide-emphasis-markers t))
+                org-hide-emphasis-markers t
+                org-replace-disputed-keys t
+                org-support-shift-select t
+                org-todo-keywords '((sequence "TODO" "IN PROGRESS" "|" "DONE"))))
+
+;; Use pretty org bullets
+(use-package org-bullets
+  :hook (org-mode . org-bullets-mode))
 
 ;; ;; old org-mode
 ;; (if (string-match "GNU Emacs 22" (version))
