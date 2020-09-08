@@ -505,6 +505,22 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
 
 (use-package org
   :ensure t
+  :bind (:map org-mode-map
+              ;; In org-mode, don't steal M-left and M-right; I want them to be
+              ;; left-word and right-word like everywhere else
+              ("M-<right>" . right-word)
+              ("M-<left>" . left-word)
+              ;; Map ctrl-shift-arrows to what is normally meta-arrows
+              ("C-S-<up>" . org-metaup)
+              ("C-S-<down>" . org-metadown)
+              ("C-S-<right>" . org-metaright)
+              ("C-S-<left>" . org-metaleft)
+              ;; Switch return and M-return
+              ("<return>" . org-meta-return)
+              ("M-<return>" . org-return)
+              ;; Use ctrl-t for changing todo state; I never use it for
+              ;; transposing characters
+              ("C-t" . org-todo))
   :init
   (setq-default org-hide-leading-stars t
                 org-odd-levels-only t
