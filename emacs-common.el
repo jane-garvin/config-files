@@ -522,9 +522,7 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
               ;; transposing characters
               ("C-t" . org-todo))
   :init
-  (setq-default org-hide-leading-stars t
-                org-odd-levels-only t
-                org-special-ctrl-a/e t
+  (setq-default org-special-ctrl-a/e t
                 org-return-follows-link t
                 org-indent-mode t
                 org-hide-emphasis-markers t
