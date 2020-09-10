@@ -183,6 +183,9 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
       (set-face-background 'cursor "Orchid")
       (set-face-foreground 'font-lock-comment-face "Thistle")
       (set-face-foreground 'font-lock-string-face "LightPink")
+      (set-face-foreground 'font-lock-keyword-face "LightSkyBlue")
+      (set-face-foreground 'font-lock-function-name-face "Cyan")
+      (set-face-foreground 'link "CornflowerBlue")
       ))
 
 ;; make the background indicate whether emacs is in focus
