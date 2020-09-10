@@ -527,7 +527,8 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
                 org-hide-emphasis-markers t
                 org-replace-disputed-keys t
                 org-support-shift-select t
-                org-todo-keywords '((sequence "TODO" "IN PROGRESS" "|" "DONE"))))
+                org-todo-keywords '((sequence "TODO" "IN PROGRESS" "|" "DONE"))
+                org-log-done 'time))
 
 ;; Use pretty org bullets
 (use-package org-bullets
