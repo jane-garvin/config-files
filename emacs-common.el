@@ -100,7 +100,6 @@
 
 ;; use ace-window for even more window control
 (use-package ace-window
-  :ensure t
   :init
     (setq aw-keys '(?a ?s ?d ?f ?j ?k ?l ?o))
     (global-set-key (kbd "C-x o") 'ace-window)
@@ -142,7 +141,6 @@
 (global-set-key [s-down] 'scroll-down-line)
 
 (use-package which-key
-  :ensure t
   :defer 10
   :diminish which-key-mode
   :config
@@ -381,7 +379,6 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
 ;;   (add-hook 'c-mode-common-hook #'setup-flycheck-rtags))
 
 (use-package magit
-  :ensure t
   :commands magit-status magit-blame
   :config
   (setq magit-branch-arguments nil
@@ -423,7 +420,6 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
 ;;;; ----- projects and spaces -----
 
 (use-package projectile
-  :ensure t
   :init (projectile-global-mode 1))
 
 (define-key projectile-mode-map (kbd "M-p") 'projectile-command-map)
@@ -433,12 +429,10 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
 ;; "Unprintable entity"'
 
 ;; (use-package perspective
-;;   :ensure t
 ;;   :bind ("C-x x x" . persp-switch-last)
 ;;   :init (persp-mode +1)
 
-;;   (use-package persp-projectile
-;;     :ensure t ))
+;;   (use-package persp-projectile))
 
 
 ;;;; ----- misc -----
@@ -510,7 +504,6 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
 (add-to-list 'auto-mode-alist '("\\.metal\\'" . c++-mode))
 
 (use-package org
-  :ensure t
   :bind (:map org-mode-map
               ;; In org-mode, don't steal M-left and M-right; I want them to be
               ;; left-word and right-word like everywhere else
@@ -619,7 +612,6 @@ point reaches the beginning or end of the buffer, stop there."
 
 ;; Use iy-go-to-char to navigate to specific characters
 (use-package iy-go-to-char
-  :ensure t
   :bind
   ("C-`" . iy-go-to-char)
   ("<f13>" . iy-go-to-char)
