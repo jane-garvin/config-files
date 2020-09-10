@@ -43,6 +43,9 @@
 ;; go home!
 (setq default-directory (concat (getenv "HOME") "/"))
 
+;; auto-revert in dired
+(add-hook 'dired-mode-hook 'auto-revert-mode)
+
 ;; Dired-du-mode is buggy and hangs at 50% even on an empty directory.
 ;; Try it again later.
 ;;(use-package dired-du
