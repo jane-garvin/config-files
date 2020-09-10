@@ -446,8 +446,9 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
 (setq-default indent-tabs-mode nil)
 ;; 80 columns, not 70
 (setq-default fill-column 80)
-;; automatically update files when changed
+;; automatically update files when changed, quietly
 (setq-default global-auto-revert-mode t)
+(setq-default auto-revert-verbose nil)
 ;; large files are OK
 (setq-default large-file-warning-threshold nil)
 ;; find files case-insensitively
