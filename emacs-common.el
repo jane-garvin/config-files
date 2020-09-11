@@ -172,6 +172,10 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
   (newline-and-indent))
 (global-set-key (kbd "M-RET") 'newline-at-end-of-current-line)
 
+;; Let emacs map the left option key as Meta;
+;; keep the Mac meaning of the right option key to make symbols like π
+(setq-default mac-right-option-modifier 'none)
+
 ;;;; ----- display -----
 
 ;; UTF-8 as default encoding
