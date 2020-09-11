@@ -517,11 +517,11 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
               ;; left-word and right-word like everywhere else
               ("M-<right>" . right-word)
               ("M-<left>" . left-word)
-              ;; Map ctrl-shift-arrows to what is normally meta-arrows
-              ("C-S-<up>" . org-metaup)
-              ("C-S-<down>" . org-metadown)
-              ("C-S-<right>" . org-metaright)
-              ("C-S-<left>" . org-metaleft)
+              ;; Map command-arrows to what is normally meta-arrows
+              ("s-<up>" . org-metaup)
+              ("s-<down>" . org-metadown)
+              ("s-<right>" . org-metaright)
+              ("s-<left>" . org-metaleft)
               ;; Switch return and M-return
               ("<return>" . org-meta-return)
               ("M-<return>" . org-return)
