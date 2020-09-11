@@ -124,12 +124,12 @@
 (global-set-key (kbd "M-<up>") 'transpose-line-up)
 (global-set-key (kbd "M-<down>") 'transpose-line-down)
 
-;; Use buffer-move: use shift-ctrl-arrows to move buffers between windows
+;; Use buffer-move: use ctrl-shift-arrows to move buffers between windows
 (use-package buffer-move
-  :bind (([S-C-up] . 'buf-move-up)
-	 ([S-C-down] . 'buf-move-down)
-	 ([S-C-right] . 'buf-move-right)
-	 ([S-C-left] . 'buf-move-left)
+  :bind (([C-S-up] . 'buf-move-up)
+	 ([C-S-down] . 'buf-move-down)
+	 ([C-S-right] . 'buf-move-right)
+	 ([C-S-left] . 'buf-move-left)
 	 ))
 
 ;; make tab first indent, then complete (instead of just indenting)
