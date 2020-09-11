@@ -78,6 +78,9 @@
 ;; I use bury-buffer a lot; add a shortcut
 (global-set-key "\C-xy" 'bury-buffer)
 
+;; use C-? as the help prefix key as well as C-h
+(global-set-key (kbd "C-?") (lookup-key global-map (kbd "C-h")))
+
 ;; FIXME: maybe rethink these bindings.
 ;; f1 starts shell
 (global-set-key [f1] 'shell)
