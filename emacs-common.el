@@ -101,7 +101,17 @@
 ;; use control-arrow keys to move between windows
 (windmove-default-keybindings 'control)
 
-;; use ace-window for even more window control
+;; use ace-jump to navigate within windows
+(use-package ace-jump-mode
+  :bind
+    ("C-c <SPC>" . ace-jump-word-mode)
+  :config
+    (set-face-attribute
+     'ace-jump-face-foreground nil
+     :foreground "Yellow"
+     :weight 'bold))
+
+;; use ace-window to jump between windows
 (use-package ace-window
   :init
     (setq aw-keys '(?a ?s ?d ?f ?j ?k ?l ?o))
@@ -618,9 +628,3 @@ point reaches the beginning or end of the buffer, stop there."
 ;; is for.
 (global-unset-key [s-left])
 (global-unset-key [s-right])
-
-;; Use iy-go-to-char to navigate to specific characters
-(use-package iy-go-to-char
-  :bind
-  ("C-`" . iy-go-to-char)
-  ("C-~" . iy-go-to-char-backward))
