@@ -623,5 +623,4 @@ point reaches the beginning or end of the buffer, stop there."
 (use-package iy-go-to-char
   :bind
   ("C-`" . iy-go-to-char)
-  ("<f13>" . iy-go-to-char)
   ("C-~" . iy-go-to-char-backward))
