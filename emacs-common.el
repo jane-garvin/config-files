@@ -400,16 +400,16 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
   :commands magit-status magit-blame
   :config
   (setq magit-branch-arguments nil
-        ;; use ido to look for branches
-        magit-completing-read-function 'magit-ido-completing-read
         ;; don't put "origin-" in front of new branch names by default
         magit-default-tracking-name-function 'magit-default-tracking-name-branch-only
         magit-push-always-verify nil
         ;; Get rid of the previous advice to go into fullscreen
         magit-restore-window-configuration t)
-
-  :bind ("C-x g s" . magit-status)
-  :bind ("C-x g l" . magit-log))
+  :bind
+    ("C-c g d" . magit-diff-unstaged)
+    ("C-c g f" . magit-fetch-all)
+    ("C-c g l" . magit-log)
+    ("C-c g s" . magit-status))
 
 (use-package flycheck
   :init (global-flycheck-mode))
