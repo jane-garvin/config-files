@@ -99,7 +99,16 @@
 (global-set-key [f7] 'font-lock-mode)
 
 ;; use control-arrow keys to move between windows
-(windmove-default-keybindings 'control)
+(use-package windmove
+  :init (windmove-default-keybindings 'control))
+
+;; Use buffer-move: use ctrl-shift-arrows to move buffers between windows
+(use-package buffer-move
+  :bind (([C-S-up] . 'buf-move-up)
+	 ([C-S-down] . 'buf-move-down)
+	 ([C-S-right] . 'buf-move-right)
+	 ([C-S-left] . 'buf-move-left)
+	 ))
 
 ;; use ace-jump to navigate within windows
 (use-package ace-jump-mode
@@ -136,14 +145,6 @@
     (forward-line -1)))
 (global-set-key (kbd "M-<up>") 'transpose-line-up)
 (global-set-key (kbd "M-<down>") 'transpose-line-down)
-
-;; Use buffer-move: use ctrl-shift-arrows to move buffers between windows
-(use-package buffer-move
-  :bind (([C-S-up] . 'buf-move-up)
-	 ([C-S-down] . 'buf-move-down)
-	 ([C-S-right] . 'buf-move-right)
-	 ([C-S-left] . 'buf-move-left)
-	 ))
 
 ;; make tab first indent, then complete (instead of just indenting)
 (setq-default tab-always-indent 'complete)
