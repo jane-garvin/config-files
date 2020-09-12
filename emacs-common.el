@@ -454,7 +454,7 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
 ;; 80 columns, not 70
 (setq-default fill-column 80)
 ;; automatically update files when changed, quietly
-(setq-default global-auto-revert-mode t)
+(global-auto-revert-mode)
 (setq-default auto-revert-verbose nil)
 ;; large files are OK
 (setq-default large-file-warning-threshold nil)
