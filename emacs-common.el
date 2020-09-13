@@ -205,6 +205,10 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
   (set-face-attribute 'whitespace-indentation nil :foreground "#cccccc" :background nil)
   :diminish whitespace-mode)
 
+;; Use ibuffer
+(add-hook 'ibuffer-hook 'ibuffer-auto-mode)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+
 ;;;; ----- display -----
 
 ;; UTF-8 as default encoding
