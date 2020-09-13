@@ -13,6 +13,9 @@
 
 ;;;; ----- packages -----
 
+;; Don't load an old emacs file if there's a newer one.
+(setq-default load-prefer-newer t)
+
 ;; grab emacs packages from repositories
 (require 'package)
 (setq package-archives
