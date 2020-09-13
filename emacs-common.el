@@ -279,45 +279,6 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
 ;; show trailing whitespace for code buffers
 (add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t)))
 
-;;;; ----- eshell -----
-
-;;;; I don't use eshell anymore, but might as well keep the settings around.
-
-(use-package eshell
-  :init
-  (setq eshell-buffer-shorthand t
-        eshell-scroll-to-bottom-on-input 'all
-        eshell-error-if-no-glob t
-        eshell-hist-ignoredups t
-        eshell-save-history-on-exit t
-        eshell-prefer-lisp-functions nil
-        eshell-destroy-buffer-when-process-dies t))
-
-;; aliases
-(add-hook 'eshell-mode-hook (lambda ()
-  (eshell/alias "c" "cp -i $*")
-  (eshell/alias "m" "mv -i $*")
-  (eshell/alias "d" "dirs -pv")
-  (eshell/alias "e" "find-file $1")
-  (eshell/alias "q" "exit")
-
-  (eshell/alias "gd" "magit-diff-unstaged")
-  (eshell/alias "gds" "magit-diff-staged")
-  (eshell/alias "gf" "magit-fetch-all")
-  (eshell/alias "gl" "magit-log")
-  (eshell/alias "gs" "magit-status")
-  ))
-
-(defun eshell/xyzzy () (eshell/echo "A hollow voice says \"Fool.\""))
-
-;; Plan-9-like shell behavior. Try this out some time.
-;(require 'em-smart)
-
-;; In eshell, ignore case when tab-completing files
-(setq-default eshell-cmpl-ignore-case t)
-;; Expand variables when I hit tab
-(setq-default eshell-cmpl-expand-before-complete t)
-
 ;;;; ----- terminal and shells -----
 
 ;; We're in emacs; no need for programs like less
