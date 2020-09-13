@@ -56,6 +56,15 @@
 (require 'uniquify)
 (setq-default uniquify-buffer-name-style 'forward)
 
+;; put backup files in a separate directory
+(setq my-backup-directory (expand-file-name (concat user-emacs-directory "backups")))
+;; Create backup directory if necessary
+(when (not (file-exists-p my-backup-directory))
+      (message "Making directory %s" my-backup-directory)
+      (make-directory my-backup-directory))
+(setq-default backup-directory-alist `(("." . ,my-backup-directory)))
+(setq-default vc-make-backup-files t)
+
 ;;;; ----- keys and shortcuts -----
 
 ;; listen to modified arrows from terminal
@@ -513,8 +522,6 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
 ;; store more undo data
 (setq-default undo-limit 300000)
 (setq-default undo-strong-limit 600000)
-;; ~ files are annoying and that's what system backups are for
-(setq make-backup-files nil)
 ;; I don't want to have to type "yes"
 (fset 'yes-or-no-p 'y-or-n-p)
 ;; keep point in the middle when scrolling
