@@ -38,7 +38,7 @@
   (setq auto-package-update-hide-results t)
   (auto-package-update-maybe))
 
-;;;; ----- directories -----
+;;;; ----- directories and buffers -----
 
 ;; go home!
 (setq default-directory (concat (getenv "HOME") "/"))
@@ -52,6 +52,9 @@
 ;;  :init
 ;;  ;; Use human-readable size formats.
 ;;  (setq dired-du-size-format t))
+
+(require 'uniquify)
+(setq-default uniquify-buffer-name-style 'forward)
 
 ;;;; ----- keys and shortcuts -----
 
