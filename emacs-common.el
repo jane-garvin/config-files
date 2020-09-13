@@ -417,12 +417,13 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
 (use-package magit
   :commands magit-status magit-blame
   :config
-  (setq magit-branch-arguments nil
-        ;; don't put "origin-" in front of new branch names by default
-        magit-default-tracking-name-function 'magit-default-tracking-name-branch-only
-        magit-push-always-verify nil
-        ;; Get rid of the previous advice to go into fullscreen
-        magit-restore-window-configuration t)
+    (setq magit-branch-arguments nil
+          ;; don't put "origin-" in front of new branch names by default
+          magit-default-tracking-name-function 'magit-default-tracking-name-branch-only
+          magit-push-always-verify nil
+          ;; Get rid of the previous advice to go into fullscreen
+          magit-restore-window-configuration t)
+    (add-hook 'after-save-hook 'magit-after-save-refresh-status t)
   :bind
     ("C-c g d" . magit-diff-unstaged)
     ("C-c g f" . magit-fetch-all)
@@ -484,6 +485,7 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
 (setq-default fill-column 80)
 ;; automatically update files when changed, quietly
 (global-auto-revert-mode)
+(setq-default global-auto-revert-non-file-buffers t)
 (setq-default auto-revert-verbose nil)
 ;; large files are OK
 (setq-default large-file-warning-threshold nil)
