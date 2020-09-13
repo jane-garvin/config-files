@@ -379,7 +379,7 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
 ;; Also remember where my cursor was
 (save-place-mode 1)
 
-;;;; ----- code (rtags and git) -----
+;;;; ----- code -----
 
 ;; rtags is throwing "Got Diagnostics Error" during init. Remove until I fix it.
 ;;(require 'rtags)
@@ -457,6 +457,19 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
   (setq-default hs-lint-replace-without-ask t)
   :bind
   ("C-c l" . hs-lint))
+
+;; ediff fixes
+;; don't make a separate ediff frame
+(setq-default ediff-window-setup-function 'ediff-setup-windows-plain)
+;; Fix a few background colors that don't work
+(set-face-background 'ediff-even-diff-A "gray30")
+(set-face-background 'ediff-even-diff-B "gray30")
+(set-face-background 'ediff-even-diff-C "gray30")
+(set-face-background 'ediff-even-diff-Ancestor "gray30")
+(set-face-background 'ediff-odd-diff-A "gray40")
+(set-face-background 'ediff-odd-diff-B "gray40")
+(set-face-background 'ediff-odd-diff-C "gray40")
+(set-face-background 'ediff-odd-diff-Ancestor "gray40")
 
 ;;;; ----- projects and spaces -----
 
