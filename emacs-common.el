@@ -1,4 +1,5 @@
-;; My emacs configuration across all machines
+;; My emacs configuration across all machines. A lot of it is adapted from
+;; Howard Abrams's excellent setup: https://github.com/howardabrams/dot-files
 
 ;;;; ----- memory -----
 
@@ -234,13 +235,20 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
 (if (or (not (eq window-system nil))
         (string= (getenv "TERM") "xterm-256color"))
     (progn
+      ;; These three were originally used at the computers at the Zoo computer
+      ;; cluster at Yale. I always liked them.
       (set-face-background 'default "DarkSlateGray")
       (set-face-foreground 'default "Wheat")
       (set-face-background 'cursor "Orchid")
+      ;; Most font-lock colors are nice, they just need a few tweaks. First,
+      ;; change the comment and string colors from the clashing orangey defaults.
       (set-face-foreground 'font-lock-comment-face "Thistle")
       (set-face-foreground 'font-lock-string-face "LightPink")
+      ;; I want function names to be more noticeable than keywords, so switch
+      ;; those two colors. Especially useful in org-mode.
       (set-face-foreground 'font-lock-keyword-face "LightSkyBlue")
       (set-face-foreground 'font-lock-function-name-face "Cyan")
+      ;; I find the default link color too distracting.
       (set-face-foreground 'link "CornflowerBlue")
       ))
 
