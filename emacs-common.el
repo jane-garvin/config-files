@@ -429,10 +429,10 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
   (setq-default haskell-process-log t)
   (setq-default haskell-process-suggest-remove-import-lines t)
   (setq-default haskell-tags-on-save t)
-  :bind
+  :bind (:map haskell-mode-map
   ("C-c C-l" . haskell-process-load-or-reload)
   ("C-c C-t" . haskell-process-do-type)
-  ("C-c C-i" . haskell-process-do-info)
+  ("C-c C-i" . haskell-process-do-info))
   :hook
   (haskell-mode . interactive-haskell-mode))
 (require 'haskell-interactive-mode)
@@ -441,8 +441,7 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
   :init
   (setq-default hs-lint-replace-with-suggestions nil)
   (setq-default hs-lint-replace-without-ask t)
-  :bind
-  ("C-c l" . hs-lint))
+  :bind (:map haskell-mode-map ("C-c l" . hs-lint)))
 
 ;; ediff fixes
 (use-package ediff
