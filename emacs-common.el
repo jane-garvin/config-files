@@ -541,7 +541,7 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
               ;; left-word and right-word like everywhere else
               ("M-<right>" . right-word)
               ("M-<left>" . left-word)
-              ;; Map command-arrows to what is normally meta-arrows
+              ;; Map ⌘-arrows to what is normally meta-arrows
               ("s-<up>" . org-metaup)
               ("s-<down>" . org-metadown)
               ("s-<right>" . org-metaright)
@@ -549,8 +549,8 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
               ;; Switch return and M-return
               ("<return>" . org-meta-return)
               ("M-<return>" . org-return)
-              ;; Use ctrl-t for changing todo state; I never use it for
-              ;; transposing characters
+              ;; Use ctrl-t for changing todo state (I never use it for
+              ;; transposing characters)
               ("C-t" . org-todo))
   :init
   (setq-default org-special-ctrl-a/e t
