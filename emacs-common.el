@@ -546,22 +546,25 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
 (add-to-list 'auto-mode-alist '("\\.metal\\'" . c++-mode))
 
 (use-package org
-  :bind (:map org-mode-map
-              ;; In org-mode, don't steal M-left and M-right; I want them to be
-              ;; left-word and right-word like everywhere else
-              ("M-<right>" . right-word)
-              ("M-<left>" . left-word)
-              ;; Map ⌘-arrows to what is normally meta-arrows
-              ("s-<up>" . org-metaup)
-              ("s-<down>" . org-metadown)
-              ("s-<right>" . org-metaright)
-              ("s-<left>" . org-metaleft)
-              ;; Switch return and M-return
-              ("<return>" . org-meta-return)
-              ("M-<return>" . org-return)
-              ;; Use ctrl-t for changing todo state (I never use it for
-              ;; transposing characters)
-              ("C-t" . org-todo))
+  :bind
+    ("C-c a" . org-agenda)
+    ("C-c c" . org-capture)
+  (:map org-mode-map
+        ;; In org-mode, don't steal M-left and M-right; I want them to be
+        ;; left-word and right-word like everywhere else
+        ("M-<right>" . right-word)
+        ("M-<left>" . left-word)
+        ;; Map ⌘-arrows to what is normally meta-arrows
+        ("s-<up>" . org-metaup)
+        ("s-<down>" . org-metadown)
+        ("s-<right>" . org-metaright)
+        ("s-<left>" . org-metaleft)
+        ;; Switch return and M-return
+        ("<return>" . org-meta-return)
+        ("M-<return>" . org-return)
+        ;; Use ctrl-t for changing todo state (I never use it for
+        ;; transposing characters)
+        ("C-t" . org-todo))
   :init
   (setq-default org-special-ctrl-a/e t
                 org-return-follows-link t
