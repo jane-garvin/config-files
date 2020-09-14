@@ -221,6 +221,9 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
 (add-hook 'ibuffer-hook 'ibuffer-auto-mode)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
+;; Use hippie-expand
+(global-set-key (kbd "M-/") 'hippie-expand)
+
 ;;;; ----- display -----
 
 ;; UTF-8 as default encoding
