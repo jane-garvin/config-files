@@ -404,6 +404,8 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
 
 (use-package magit
   :commands magit-status magit-blame
+  :init
+    (magit-auto-revert-mode)
   :config
     (setq magit-branch-arguments nil
           ;; don't put "origin-" in front of new branch names by default
