@@ -560,7 +560,12 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
                 org-replace-disputed-keys t
                 org-support-shift-select t
                 org-todo-keywords '((sequence "TODO" "IN PROGRESS" "|" "DONE"))
-                org-log-done 'time))
+                org-log-done 'time
+                org-startup-folded nil
+                org-directory "~/notes/org"
+                org-default-notes-file (concat org-directory "/inbox.org")
+                )
+  )
 
 ;; Use pretty org bullets
 (use-package org-bullets
