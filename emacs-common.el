@@ -69,6 +69,10 @@
 (setq-default backup-directory-alist `(("." . ,my-backup-directory)))
 (setq-default vc-make-backup-files t)
 
+;; I save about every ten seconds, and I revert a file almost never. Set it to
+;; automatically save everything.
+(auto-save-visited-mode)
+
 ;;;; ----- keys and shortcuts -----
 
 ;; listen to modified arrows from terminal
