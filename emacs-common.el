@@ -225,6 +225,40 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
 ;; Use hippie-expand
 (global-set-key (kbd "M-/") 'hippie-expand)
 
+;; Stolen from Howard: make C-a move to beginning of stuff on the line. Hit C-a
+;; again to move to the actual beginning of the line.
+(defun smarter-move-beginning-of-line (arg)
+  "Move point back to indentation of beginning of line.
+
+Move point to the first non-whitespace character on this line.
+If point is already there, move to the beginning of the line.
+Effectively toggle between the first non-whitespace character and
+the beginning of the line.
+
+If ARG is not nil or 1, move forward ARG - 1 lines first.  If
+point reaches the beginning or end of the buffer, stop there."
+  (interactive "^p")
+  (setq arg (or arg 1))
+
+  ;; Move lines first
+  (when (/= arg 1)
+    (let ((line-move-visual nil))
+      (forward-line (1- arg))))
+
+  (let ((orig-point (point)))
+    (back-to-indentation)
+    (when (= orig-point (point))
+      (move-beginning-of-line 1))))
+
+;; remap C-a to ‘smarter-move-beginning-of-line’
+(global-set-key [remap move-beginning-of-line] 'smarter-move-beginning-of-line)
+
+;; By default s-left and s-right map to ns-next-frame and ns-previous-frame,
+;; which is way too easy to mistype. If I want to switch frames, that's what s-`
+;; is for.
+(global-unset-key [s-left])
+(global-unset-key [s-right])
+
 ;;;; ----- display -----
 
 ;; UTF-8 as default encoding
@@ -629,36 +663,3 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
 ;; use graphviz mode for dot files
 (use-package graphviz-dot-mode)
 
-;; Stolen from Howard: make C-a move to beginning of stuff on the line. Hit C-a
-;; again to move to the actual beginning of the line.
-(defun smarter-move-beginning-of-line (arg)
-  "Move point back to indentation of beginning of line.
-
-Move point to the first non-whitespace character on this line.
-If point is already there, move to the beginning of the line.
-Effectively toggle between the first non-whitespace character and
-the beginning of the line.
-
-If ARG is not nil or 1, move forward ARG - 1 lines first.  If
-point reaches the beginning or end of the buffer, stop there."
-  (interactive "^p")
-  (setq arg (or arg 1))
-
-  ;; Move lines first
-  (when (/= arg 1)
-    (let ((line-move-visual nil))
-      (forward-line (1- arg))))
-
-  (let ((orig-point (point)))
-    (back-to-indentation)
-    (when (= orig-point (point))
-      (move-beginning-of-line 1))))
-
-;; remap C-a to ‘smarter-move-beginning-of-line’
-(global-set-key [remap move-beginning-of-line] 'smarter-move-beginning-of-line)
-
-;; By default s-left and s-right map to ns-next-frame and ns-previous-frame,
-;; which is way too easy to mistype. If I want to switch frames, that's what s-`
-;; is for.
-(global-unset-key [s-left])
-(global-unset-key [s-right])
