@@ -288,6 +288,8 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
                       (linum-mode 1)))))
 ;; show trailing whitespace for code buffers
 (add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t)))
+;; enable emoji
+(set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend)
 
 ;;;; ----- terminal and shells -----
 
