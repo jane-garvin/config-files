@@ -402,6 +402,7 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
 ;;   ;; c-mode-common-hook is also called by c++-mode
 ;;   (add-hook 'c-mode-common-hook #'setup-flycheck-rtags))
 
+(require 'magit)
 (use-package magit
   :commands magit-status magit-blame
   :init
