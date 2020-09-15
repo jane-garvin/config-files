@@ -278,7 +278,6 @@ QUOTATION MARK' and `SINGLE COMMA QUOTATION MARK'."
 (use-package linum
   :init
   (add-hook 'prog-mode-hook 'linum-mode)
-  (add-hook 'linum-mode-hook (lambda () (set-face-attribute 'linum nil :height 110)))
 
   :config
   (defun linum-fringe-toggle ()
