@@ -631,7 +631,7 @@ point reaches the beginning or end of the buffer, stop there."
                 '(("t" "Todo" entry (file+headline "~/Stuff/org/inbox.org" "Inbox")
                    "* TODO %i%?")
                   ("l" "Link" entry (file+headline "~/Stuff/org/inbox.org" "Inbox")
-                   "* %? %i\n  %a")))
+                   "* %? %i\n  %a"))
                 org-agenda-prefix-format
                 ;; I want to show the project each todo is part of. The %b in
                 ;; todo means "breadcrumbs," i.e., ancestor items.
