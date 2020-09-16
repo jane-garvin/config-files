@@ -344,6 +344,8 @@ point reaches the beginning or end of the buffer, stop there."
                       (linum-mode 1)))))
 ;; show trailing whitespace for code buffers
 (add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t)))
+;; sort completions vertically instead of horizontally
+(setq-default completions-format 'vertical)
 
 ;;;; ----- terminal and shells -----
 
