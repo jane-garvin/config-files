@@ -19,7 +19,7 @@ compinit
 # Set prompt, unless I'm using the spaceship prompt from oh-my-zsh.
 if [[ ! -d "${HOME}/.oh-my-zsh" ]]
 then
-  export PS1="%B%D{%F %r} %m %~
+  export PS1="%B%D{%F %r} %~
 %# %b"
 fi
 
