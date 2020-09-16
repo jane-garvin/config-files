@@ -255,11 +255,19 @@ point reaches the beginning or end of the buffer, stop there."
 ;; remap C-a to ‘smarter-move-beginning-of-line’
 (global-set-key [remap move-beginning-of-line] 'smarter-move-beginning-of-line)
 
-;; By default s-left and s-right map to ns-next-frame and ns-previous-frame,
+;; By default ⌘-left and ⌘-right map to ns-next-frame and ns-previous-frame,
 ;; which is way too easy to mistype. If I want to switch frames, that's what s-`
 ;; is for.
 (global-unset-key [s-left])
 (global-unset-key [s-right])
+
+;; More sensible binding for ⌘-n
+(defun my-new-buffer () (interactive)
+       (let ((buf (generate-new-buffer "untitled")))
+         (switch-to-buffer buf)
+         (funcall initial-major-mode)
+         (setq buffer-offer-save t)))
+(global-set-key (kbd "s-n") 'my-new-buffer)
 
 ;;;; ----- display -----
 
