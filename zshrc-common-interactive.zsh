@@ -4,12 +4,12 @@
 # required to allow emacs tramp to access remote files
 if [[ "$TERM" == "dumb" ]]
 then
-    unsetopt zle
-    unsetopt prompt_cr
-    unsetopt prompt_subst
-    unfunction precmd
-    unfunction preexec
-    PS1='$ '
+  unsetopt zle
+  unsetopt prompt_cr
+  unsetopt prompt_subst
+  unfunction precmd
+  unfunction preexec
+  PS1='$ '
 fi
 
 # use fancy completions
