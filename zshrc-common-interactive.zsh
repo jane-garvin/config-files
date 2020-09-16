@@ -74,9 +74,12 @@ e () {
     echo "tell application \"Emacs.app\" to activate \n return" | osascript
   else
     # If there are arguments, try using emacsclient
-    # -n: return without waiting
-    # -c: open a new frame instead of using an old one
-    emacsclient -c -n $* 2>/dev/null
+    local createframe=""
+    if (( ! ${+INSIDE_EMACS} ))
+    then
+      createframe="--create-frame"
+    fi
+    emacsclient ${createframe} --no-wait $* 2>/dev/null
   fi ||
   # If emacsclient failed (usually because emacs isn't already open), open it
   # with Applescript, giving it the filename args
