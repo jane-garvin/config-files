@@ -625,7 +625,7 @@ point reaches the beginning or end of the buffer, stop there."
                 org-todo-keywords '((sequence "TODO" "IN PROGRESS" "|" "DONE"))
                 org-log-done 'time
                 org-startup-folded nil
-                org-directory "~/notes/org"
+                org-directory "~/Stuff/org"
                 org-default-notes-file (concat org-directory "/inbox.org")
                 org-agenda-prefix-format
                 ;; I want to show the project each todo is part of. The %b in
