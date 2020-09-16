@@ -460,8 +460,6 @@ point reaches the beginning or end of the buffer, stop there."
 (require 'magit)
 (use-package magit
   :commands magit-status magit-blame
-  :init
-    (magit-auto-revert-mode)
   :config
     (setq magit-branch-arguments nil
           ;; don't put "origin-" in front of new branch names by default
