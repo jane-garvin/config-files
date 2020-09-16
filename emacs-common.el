@@ -1,6 +1,11 @@
 ;; My emacs configuration across all machines. A lot of it is adapted from
 ;; Howard Abrams's excellent setup: https://github.com/howardabrams/dot-files
 
+;;;; ----- Lisp -----
+
+;; It's only right. Yes, I am a programming language nerd.
+(setq lexical-binding t)
+
 ;;;; ----- memory -----
 
 ;; Give emacs the megabytes it's always wanted
