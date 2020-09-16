@@ -108,11 +108,11 @@
 
 ;; f1-f4: start shells
 (defun my-numbered-shell (n)
-  (shell (get-buffer-create (format "*shell*<%d>" n))))
-(global-set-key [f1] (lambda () (interactive) (my-numbered-shell 1)))
-(global-set-key [f2] (lambda () (interactive) (my-numbered-shell 2)))
-(global-set-key [f3] (lambda () (interactive) (my-numbered-shell 3)))
-(global-set-key [f4] (lambda () (interactive) (my-numbered-shell 4)))
+  (lambda () (interactive) (shell (get-buffer-create (format "*shell*<%d>" n)))))
+(global-set-key [f1] (my-numbered-shell 1))
+(global-set-key [f2] (my-numbered-shell 2))
+(global-set-key [f3] (my-numbered-shell 3))
+(global-set-key [f4] (my-numbered-shell 4))
 ;; compile program
 (global-set-key [f5] 'compile)
 ;; open a new eshell terminal
