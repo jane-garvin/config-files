@@ -627,6 +627,11 @@ point reaches the beginning or end of the buffer, stop there."
                 org-startup-folded nil
                 org-directory "~/Stuff/org"
                 org-default-notes-file (concat org-directory "/inbox.org")
+                org-capture-templates
+                '(("t" "Todo" entry (file+headline "~/Stuff/org/inbox.org" "Inbox")
+                   "* TODO %i%?")
+                  ("l" "Link" entry (file+headline "~/Stuff/org/inbox.org" "Inbox")
+                   "* %? %i\n  %a")))
                 org-agenda-prefix-format
                 ;; I want to show the project each todo is part of. The %b in
                 ;; todo means "breadcrumbs," i.e., ancestor items.
