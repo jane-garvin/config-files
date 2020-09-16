@@ -16,9 +16,12 @@ fi
 autoload -Uz compinit
 compinit
 
-# Set prompt. Disabled because I'm using spaceship prompt instead
-#export PS1="%B%D{%F %r} %m %~
-#%# %b"
+# Set prompt, unless I'm using the spaceship prompt from oh-my-zsh.
+if [[ ! -d "~/.oh-my-zsh" ]]
+then
+  export PS1="%B%D{%F %r} %m %~
+%# %b"
+fi
 
 # Ctrl-r searches history backward. Add Meta-r to search history forward.
 bindkey '\er' history-incremental-search-forward
