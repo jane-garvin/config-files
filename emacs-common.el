@@ -101,15 +101,13 @@
 ;; use C-? as the help prefix key as well as C-h
 (global-set-key (kbd "C-?") (lookup-key global-map (kbd "C-h")))
 
-;; FIXME: maybe rethink these bindings.
-;; f1 starts shell
-(global-set-key [f1] 'shell)
-;; f2 default maps to something I never want to use
-(global-set-key [f2] 'ignore)
-;; go to line
-(global-set-key [f3] 'goto-line)
-;; f4 default maps to something I never want to use
-(global-set-key [f4] 'ignore)
+;; f1-f4: start shells
+(defun my-numbered-shell (n)
+  (shell (get-buffer-create (format "*shell*<%d>" n))))
+(global-set-key [f1] (lambda () (interactive) (my-numbered-shell 1)))
+(global-set-key [f2] (lambda () (interactive) (my-numbered-shell 2)))
+(global-set-key [f3] (lambda () (interactive) (my-numbered-shell 3)))
+(global-set-key [f4] (lambda () (interactive) (my-numbered-shell 4)))
 ;; compile program
 (global-set-key [f5] 'compile)
 ;; open a new eshell terminal
