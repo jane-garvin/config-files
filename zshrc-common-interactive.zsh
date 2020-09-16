@@ -17,7 +17,7 @@ autoload -Uz compinit
 compinit
 
 # Set prompt, unless I'm using the spaceship prompt from oh-my-zsh.
-if [[ ! -d "~/.oh-my-zsh" ]]
+if [[ ! -d "${HOME}/.oh-my-zsh" ]]
 then
   export PS1="%B%D{%F %r} %m %~
 %# %b"
