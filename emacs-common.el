@@ -300,6 +300,11 @@ point reaches the beginning or end of the buffer, stop there."
       ;; I find the default link color too distracting.
       (set-face-foreground 'link "CornflowerBlue")
       ))
+;; For some reason the cursor color doesn't follow when you make-frame
+(defun set-cursor-hook (frame)
+  (modify-frame-parameters
+   frame (list (cons 'cursor-color (face-attribute 'cursor :background)))))
+(add-hook 'after-make-frame-functions 'set-cursor-hook)
 
 ;; enable emoji
 (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend)
