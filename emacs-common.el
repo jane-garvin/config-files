@@ -304,14 +304,15 @@ point reaches the beginning or end of the buffer, stop there."
 ;; enable emoji
 (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend)
 ;; Use my favorite monospace font if it's available
-(let ((my-font-name "Inconsolata"))
-  (if (member my-font-name (font-family-list))
+(let ((my-fonts '("Inconsolata" "Inconsolata for Powerline")))
+  (dolist (font my-fonts)
+    (if (member font (font-family-list))
       (set-face-attribute 'default nil
-                          :font my-font-name
+                          :font font
                           :height 140
                           :weight 'light
                           :width 'normal
-                          )))
+                          ))))
 
 ;; make the background indicate whether emacs is in focus
 (add-hook 'focus-out-hook (lambda () (set-face-background 'default "DimGray")))
