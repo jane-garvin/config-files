@@ -663,8 +663,7 @@ point reaches the beginning or end of the buffer, stop there."
 ;; others: ♥ ● ◇ ✚ ✜ ☯ ◆ ♠ ♣ ♦ ☢ ❀ ◆ ◖ ▶ ► • ★ ▸
 (use-package org-bullets
   :hook (org-mode . org-bullets-mode)
-  :init (setq org-bullets-bullet-list
-              '("●" "○" "◆" "◇")))
+  :init (setq org-bullets-bullet-list '("●" "○")))
 
 ;; ;; old org-mode
 ;; (if (string-match "GNU Emacs 22" (version))
