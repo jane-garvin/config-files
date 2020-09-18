@@ -534,6 +534,9 @@ point reaches the beginning or end of the buffer, stop there."
 (use-package elpy
   :init (elpy-enable))
 
+;; rnc-mode for RELAX NG
+(use-package rnc-mode)
+
 ;;;; ----- projects and spaces -----
 
 (use-package projectile
