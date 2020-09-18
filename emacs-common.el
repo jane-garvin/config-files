@@ -275,6 +275,9 @@ point reaches the beginning or end of the buffer, stop there."
          (setq buffer-offer-save t)))
 (global-set-key (kbd "s-n") 'my-new-buffer)
 
+(global-set-key (kbd "C-c e r") 'eval-region)
+(global-set-key (kbd "C-c e b") 'eval-buffer)
+
 ;;;; ----- display -----
 
 ;; UTF-8 as default encoding
