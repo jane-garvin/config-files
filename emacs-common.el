@@ -581,6 +581,8 @@ point reaches the beginning or end of the buffer, stop there."
 ;; find files case-insensitively
 (setq-default read-file-name-completion-ignore-case t)
 ;; find buffer names case-insensitively
+(setq-default read-buffer-completion-ignore-case t)
+;; find everything else case-insensitively
 (setq-default completion-ignore-case t)
 ;; store more undo data
 (setq-default undo-limit 300000)
