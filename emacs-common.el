@@ -303,7 +303,6 @@ point reaches the beginning or end of the buffer, stop there."
       (set-face-foreground 'font-lock-function-name-face "Cyan")
       ;; I find the default link color too distracting.
       (set-face-foreground 'link "CornflowerBlue")
-      (set-face-background 'highlight-indentation-face "DarkSeaGreen4")
       ))
 ;; For some reason the cursor color doesn't follow when you make-frame
 (defun set-cursor-hook (frame)
@@ -536,6 +535,10 @@ point reaches the beginning or end of the buffer, stop there."
 
 ;; rnc-mode for RELAX NG
 (use-package rnc-mode)
+
+(use-package highlight-indentation
+  :config
+  (set-face-background 'highlight-indentation-face "DarkSeaGreen4"))
 
 ;;;; ----- projects and spaces -----
 
