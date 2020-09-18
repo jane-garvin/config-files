@@ -108,8 +108,8 @@
 (global-set-key (kbd "C-?") (lookup-key global-map (kbd "C-h")))
 
 ;; f1-f4: start shells
-(defun my-numbered-shell (n)
-  (lambda () (interactive) (shell (get-buffer-create (format "*shell*<%d>" n)))))
+(defmacro my-numbered-shell (n)
+  `(lambda () (interactive) (shell (get-buffer-create (format "*shell*<%d>" ,n)))))
 (global-set-key [f1] (my-numbered-shell 1))
 (global-set-key [f2] (my-numbered-shell 2))
 (global-set-key [f3] (my-numbered-shell 3))
