@@ -526,6 +526,9 @@ point reaches the beginning or end of the buffer, stop there."
   (set-face-background 'ediff-odd-diff-C "gray40")
   (set-face-background 'ediff-odd-diff-Ancestor "gray40"))
 
+(use-package elpy
+  :init (elpy-enable))
+
 ;;;; ----- projects and spaces -----
 
 (use-package projectile
