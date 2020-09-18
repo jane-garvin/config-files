@@ -531,14 +531,17 @@ point reaches the beginning or end of the buffer, stop there."
 
 ;; elpy for Python
 (use-package elpy
-  :init (elpy-enable))
+  :init
+  (elpy-enable)
+  (delete 'elpy-module-highlight-indentation elpy-modules))
 
 ;; rnc-mode for RELAX NG
 (use-package rnc-mode)
 
-(use-package highlight-indentation
+(use-package highlight-indent-guides
+  :hook (prog-mode . highlight-indent-guides-mode)
   :config
-  (set-face-background 'highlight-indentation-face "DarkSeaGreen4"))
+  (setq highlight-indent-guides-method 'bitmap))
 
 ;;;; ----- projects and spaces -----
 
