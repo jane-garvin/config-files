@@ -74,8 +74,9 @@
 (setq-default backup-directory-alist `(("." . ,my-backup-directory)))
 (setq-default vc-make-backup-files t)
 
-;; I save about every ten seconds, and I revert a file almost never. Set it to
-;; automatically save everything.
+;; Without auto-save, I save about every two to ten seconds, and I revert a file almost
+;; never. Set it to automatically save everything.
+(setq auto-save-visited-interval 1)
 (auto-save-visited-mode)
 
 ;;;; ----- keys and shortcuts -----
