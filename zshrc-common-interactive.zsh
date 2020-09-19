@@ -40,7 +40,7 @@ alias q=exit
 alias c='cp -i'
 alias m='mv -i'
 alias mj='make -j8'
-alias d='dirs -pv'
+alias ds='dirs -pv'
 alias less='less --RAW-CONTROL-CHARS'
 alias gb='git branch'
 alias gd='git diff'
@@ -124,6 +124,21 @@ lines () {
   else
     echo lines: bad range
   fi
+}
+
+# Tell emacs to open a directory with dired
+d () {
+  if (( ${#} == 0 ))
+  then
+    name=$(pwd)
+  elif (( ${#} == 1 ))
+  then
+    name=$1
+  else
+    echo d: too many arguments
+    return
+  fi
+  emacsclient --quiet --no-wait --eval "(dired \"${name}\")"
 }
 
 # convert numbers between decimal and (64-bit) hexadecimal
