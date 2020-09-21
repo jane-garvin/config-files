@@ -341,6 +341,8 @@ point reaches the beginning or end of the buffer, stop there."
 ;; always show line number and column number in mode line
 (line-number-mode 1)
 (column-number-mode 1)
+;; make columns one-based, following clang's example
+(setq-default column-number-indicator-zero-based nil)
 ;; show the time in the mode line, but don't show the load average. emacs
 ;; display-time includes load average by default for some reason
 (setq-default display-time-default-load-average nil)
