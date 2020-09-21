@@ -678,6 +678,7 @@ point reaches the beginning or end of the buffer, stop there."
                   (todo . " %i %b")
                   (tags . " %i %-12:c")
                   (search . " %i %-12:c"))
+                org-pretty-entities t
                 ))
 
 ;; Use pretty org bullets
