@@ -323,9 +323,17 @@ point reaches the beginning or end of the buffer, stop there."
                           :width 'normal
                           ))))
 
+;; Dim unselected windows
+(use-package auto-dim-other-buffers
+  :init
+  (auto-dim-other-buffers-mode))
 ;; make the background indicate whether emacs is in focus
-(add-hook 'focus-out-hook (lambda () (set-face-background 'default "DimGray")))
-(add-hook 'focus-in-hook (lambda () (set-face-background 'default "DarkSlateGray")))
+(add-hook 'focus-out-hook (lambda ()
+                            (auto-dim-other-buffers-mode 0)
+                            (set-face-background 'default "DimGray")))
+(add-hook 'focus-in-hook (lambda ()
+                           (auto-dim-other-buffers-mode)
+                           (set-face-background 'default "DarkSlateGray")))
 
 ;; By default emacs gives up and shows "??" if lines are too long. I want emacs
 ;; to try harder to find line numbers.
