@@ -302,8 +302,7 @@ point reaches the beginning or end of the buffer, stop there."
       (set-face-foreground 'font-lock-keyword-face "LightSkyBlue")
       (set-face-foreground 'font-lock-function-name-face "Cyan")
       ;; I find the default link color too distracting.
-      (set-face-foreground 'link "CornflowerBlue")
-      ))
+      (set-face-foreground 'link "CornflowerBlue")))
 ;; For some reason the cursor color doesn't follow when you make-frame
 (defun set-cursor-hook (frame)
   (modify-frame-parameters
@@ -320,8 +319,7 @@ point reaches the beginning or end of the buffer, stop there."
                           :font font
                           :height 140
                           :weight 'light
-                          :width 'normal
-                          ))))
+                          :width 'normal))))
 
 ;; Dim unselected windows
 (use-package auto-dim-other-buffers
@@ -686,8 +684,7 @@ point reaches the beginning or end of the buffer, stop there."
                   (todo . " %i %b")
                   (tags . " %i %-12:c")
                   (search . " %i %-12:c"))
-                org-pretty-entities t
-                ))
+                org-pretty-entities t))
 
 ;; Use pretty org bullets
 ;; default: ◉ ○ ✸ ✿
