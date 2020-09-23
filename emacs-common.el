@@ -662,9 +662,6 @@ point reaches the beginning or end of the buffer, stop there."
   :init
   (setq-default org-special-ctrl-a/e t
                 org-return-follows-link t
-                org-indent-mode t
-                org-indent-indentation-per-level 2
-                org-hide-emphasis-markers t
                 org-replace-disputed-keys t
                 org-support-shift-select t
                 org-todo-keywords '((sequence
