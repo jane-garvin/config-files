@@ -667,7 +667,13 @@ point reaches the beginning or end of the buffer, stop there."
                 org-hide-emphasis-markers t
                 org-replace-disputed-keys t
                 org-support-shift-select t
-                org-todo-keywords '((sequence "TODO" "IN PROGRESS" "|" "DONE"))
+                org-todo-keywords '((sequence
+                                     "TODO(t)"
+                                     "IN PROGRESS(p)"
+                                     "WAITING(w)"
+                                     "|"
+                                     "DONE(d)"
+                                     "CANCELED(c@)"))
                 org-log-done 'time
                 org-startup-folded nil
                 org-directory "~/Stuff/org"
