@@ -680,7 +680,7 @@ point reaches the beginning or end of the buffer, stop there."
                 org-agenda-prefix-format
                 ;; I want to show the project each todo is part of. The %b in
                 ;; todo means "breadcrumbs," i.e., ancestor items.
-                '((agenda . " ghi %i %-12:c%?-12t% s jkl")
+                '((agenda . " %i %-12:c%?-12t% s")
                   (todo . " %i %b")
                   (tags . " %i %-12:c")
                   (search . " %i %-12:c"))
