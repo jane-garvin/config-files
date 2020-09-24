@@ -365,8 +365,9 @@ point reaches the beginning or end of the buffer, stop there."
                       (linum-mode -1))
           (t          (fringe-mode '(8 . 0))
                       (linum-mode 1)))))
-;; show trailing whitespace for code buffers
+;; show trailing whitespace in code buffers and org-mode
 (add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t)))
+(add-hook 'org-mode-hook (lambda () (setq show-trailing-whitespace t)))
 ;; sort completions vertically instead of horizontally
 (setq-default completions-format 'vertical)
 
