@@ -147,8 +147,11 @@
 ;; use ace-window to jump between windows
 (use-package ace-window
   :init
-    (setq aw-keys '(?a ?s ?d ?f ?j ?k ?l ?o))
-    (global-set-key (kbd "C-x o") 'ace-window)
+  (setq aw-keys '(?j ?k ?l ?a ?s ?d ?f ?g ?h
+                     ?u ?i ?o ?p ?q ?w ?e ?r ?t ?y
+                     ?n ?m ?z ?x ?c ?v ?b))
+    (global-set-key (kbd "M-o") 'ace-window)
+    (setq aw-scope 'frame)
   :diminish ace-window-mode
   :config
     (set-face-attribute
