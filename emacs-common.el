@@ -416,12 +416,28 @@ point reaches the beginning or end of the buffer, stop there."
 
 ;; don't bug me about running processes when exiting emacs
 (setq-default confirm-kill-processes nil)
-;; save active buffers periodically
-(desktop-save-mode 1)
-;; always use the home desktop no matter where the current directory is
-(setq-default desktop-path (list "~"))
-;; save active minibuffer history periodically
-(savehist-mode 1)
+(use-package desktop
+  :init
+  ;; save active buffers periodically
+  (desktop-save-mode 1)
+  ;; save active minibuffer history periodically
+  (savehist-mode 1)
+  ;; Remember where my cursor was
+  (save-place-mode 1))
+(defun my-desktop+-init ()
+  "Use desktop+ so that we also save narrowed and other indirect buffers."
+  (let* ((my-desktop-name "main")
+         (my-desktop-directory
+          (concat user-emacs-directory "desktops/" my-desktop-name)))
+    (if (file-exists-p my-desktop-directory)
+      (desktop+-load my-desktop-name)
+      (progn
+        (desktop+-create my-desktop-name)
+        (desktop+-load my-desktop-name)))))
+(use-package desktop+
+  :after desktop
+  :config
+  (add-hook 'emacs-startup-hook 'my-desktop+-init))
 ;; If emacs didn't exit cleanly because of a crash, a power outage, etc., it
 ;; will leave a stale desktop lock file. When emacs starts again, it will think
 ;; the desktop file is locked, even though the PID it thinks is locking the file
@@ -444,8 +460,6 @@ point reaches the beginning or end of the buffer, stop there."
   (interactive)
   (save-some-buffers t))
 (add-hook 'focus-out-hook 'save-all)
-;; Also remember where my cursor was
-(save-place-mode 1)
 
 ;;;; ----- code -----
 
