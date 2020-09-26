@@ -586,6 +586,147 @@ point reaches the beginning or end of the buffer, stop there."
 
 ;;   (use-package persp-projectile))
 
+;;;; ----- org-mode -----
+
+(defun my-delete-leading-stars (&optional arg)
+  "Delete the org heading (one or more '*'s followed by a space)
+at the beginning of the current line. If the line does not begin
+with an org heading, do nothing. With argument, move forward ARG
+- 1 lines first."
+  (interactive "p")
+  (save-mark-and-excursion
+    (move-beginning-of-line arg)
+    (let ((beg (point)))
+      (re-search-forward "^[*]+ " (line-end-position) t)
+      (delete-region beg (point)))))
+
+(defun my-org-delete-backward-char (n)
+  "If point is at org header, then delete header. Otherwise,
+just call org-delete-backward-char."
+  (interactive "p")
+  (if (/= n 1)
+    (org-delete-backward-char n)
+    (let ((origin (point))
+          (beginning-of-text nil))
+      (save-mark-and-excursion
+        (back-to-indentation)
+        (when (looking-at "[*]+ ")
+          (goto-char (match-end 0))
+          (setq beginning-of-text (point))))
+      (if (and beginning-of-text
+               (= origin beginning-of-text))
+        (my-delete-leading-stars)
+        (org-delete-backward-char 1)))))
+
+(defun my-org-delete-char (n)
+  "If point is at the end of the line, delete both the newline
+and the heading of the next line, if any. Otherwise, just call
+org-delete-char."
+  (interactive "p")
+  (when (= (point) (line-end-position)) (my-delete-leading-stars 2))
+  (org-delete-char n))
+
+(defun my-org-kill-line (&optional arg)
+    "If point is at end of line, delete indentation at beginning
+of next line. Then, in any case, call org-kill-line."
+  (interactive "P")
+  (when (= (point) (line-end-position)) (my-delete-leading-stars 2))
+  (org-kill-line arg))
+
+(defun my-org-delete-indentation (&optional arg)
+  "Delete indentation at beginning of this line, then call
+org-delete-indentation."
+  (interactive "P")
+  (my-delete-leading-stars)
+  (org-delete-indentation arg))
+
+(use-package org
+  :bind
+    ("C-c a" . org-agenda)
+    ("C-c c" . org-capture)
+  (:map org-mode-map
+        ;; In org-mode, don't steal M-left and M-right; I want them to be
+        ;; left-word and right-word like everywhere else
+        ("M-<right>" . right-word)
+        ("M-<left>" . left-word)
+        ;; Map ⌘-arrows to what is normally meta-arrows
+        ("s-<up>" . org-metaup)
+        ("s-<down>" . org-metadown)
+        ("s-<right>" . org-metaright)
+        ("s-<left>" . org-metaleft)
+        ;; Switch return and M-return
+        ("<return>" . org-meta-return)
+        ("M-<return>" . org-return)
+        ;; Use ctrl-t for changing todo state (I never use it for
+        ;; transposing characters)
+        ("C-t" . org-todo)
+        ;; Delete stars when necessary for delete and related keys.
+        ("<DEL>" . my-org-delete-backward-char)
+        ("C-d" . my-org-delete-char)
+        ("C-k" . my-org-kill-line)
+        ("M-^" . my-org-delete-indentation))
+  :init
+  (setq-default org-special-ctrl-a/e t
+                org-return-follows-link t
+                org-replace-disputed-keys t
+                org-support-shift-select t
+                org-todo-keywords '((sequence
+                                     "TODO(t)"
+                                     "IN PROGRESS(p)"
+                                     "WAITING(w)"
+                                     "|"
+                                     "DONE(d)"
+                                     "CANCELED(c@)"))
+                org-log-done 'time
+                org-startup-folded nil
+                org-directory "~/Stuff/org"
+                org-default-notes-file (concat org-directory "/inbox.org")
+                org-capture-templates
+                '(("t" "Todo" entry (file+headline "~/Stuff/org/inbox.org" "Inbox")
+                   "* TODO %i%?")
+                  ("l" "Link" entry (file+headline "~/Stuff/org/inbox.org" "Inbox")
+                   "* %? %i\n  %a"))
+                org-agenda-prefix-format
+                ;; I want to show the project each todo is part of. The %b in
+                ;; todo means "breadcrumbs," i.e., ancestor items.
+                '((agenda . " %i %-12:c%?-12t% s")
+                  (todo . " %i %b")
+                  (tags . " %i %-12:c")
+                  (search . " %i %-12:c"))
+                org-pretty-entities t
+                org-agenda-window-setup 'current-window))
+
+;; Use pretty org bullets
+;; default: ◉ ○ ✸ ✿
+;; others: ♥ ● ◇ ✚ ✜ ☯ ◆ ♠ ♣ ♦ ☢ ❀ ◆ ◖ ▶ ► • ★ ▸
+(use-package org-bullets
+  :hook (org-mode . org-bullets-mode)
+  :init (setq org-bullets-bullet-list '("●" "○")))
+
+;; ;; old org-mode
+;; (if (string-match "GNU Emacs 22" (version))
+;;   (progn
+;;     (add-to-list 'load-path "~/Dropbox/software/emacs-packages/org-7.7/lisp")
+;;     (require 'org-install)
+;;     (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+;;     (global-set-key "\C-cl" 'org-store-link)
+;;     (global-set-key "\C-cc" 'org-capture)
+;;     (global-set-key "\C-ca" 'org-agenda)
+;;     (global-set-key "\C-cb" 'org-iswitchb)
+;; ;;    (setq-default org-replace-disputed-keys t)
+;; ;;    (setq-default org-startup-indented t)
+;;     (add-hook 'org-mode-hook
+;;       (lambda ()
+;;         (local-set-key [A-up] 'org-move-subtree-up)
+;;         (local-set-key [A-down] 'org-move-subtree-down)))
+;;     ; tell org-mode not to steal S-C-arrows
+;;     (defun org-remove-bindings ()
+;;       (define-key org-mode-map [S-C-up] nil)
+;;       (define-key org-mode-map [S-C-down] nil)
+;;       (define-key org-mode-map [S-C-right] nil)
+;;       (define-key org-mode-map [S-C-left] nil))
+;;     (eval-after-load "org" '(org-remove-bindings))
+;;     ))
 
 ;;;; ----- misc -----
 
@@ -657,88 +798,6 @@ point reaches the beginning or end of the buffer, stop there."
 ;; use c++-mode for Metal files (close enough)
 (add-to-list 'auto-mode-alist '("\\.metal\\'" . c++-mode))
 
-(use-package org
-  :bind
-    ("C-c a" . org-agenda)
-    ("C-c c" . org-capture)
-  (:map org-mode-map
-        ;; In org-mode, don't steal M-left and M-right; I want them to be
-        ;; left-word and right-word like everywhere else
-        ("M-<right>" . right-word)
-        ("M-<left>" . left-word)
-        ;; Map ⌘-arrows to what is normally meta-arrows
-        ("s-<up>" . org-metaup)
-        ("s-<down>" . org-metadown)
-        ("s-<right>" . org-metaright)
-        ("s-<left>" . org-metaleft)
-        ;; Switch return and M-return
-        ("<return>" . org-meta-return)
-        ("M-<return>" . org-return)
-        ;; Use ctrl-t for changing todo state (I never use it for
-        ;; transposing characters)
-        ("C-t" . org-todo))
-  :init
-  (setq-default org-special-ctrl-a/e t
-                org-return-follows-link t
-                org-replace-disputed-keys t
-                org-support-shift-select t
-                org-todo-keywords '((sequence
-                                     "TODO(t)"
-                                     "IN PROGRESS(p)"
-                                     "WAITING(w)"
-                                     "|"
-                                     "DONE(d)"
-                                     "CANCELED(c@)"))
-                org-log-done 'time
-                org-startup-folded nil
-                org-directory "~/Stuff/org"
-                org-default-notes-file (concat org-directory "/inbox.org")
-                org-capture-templates
-                '(("t" "Todo" entry (file+headline "~/Stuff/org/inbox.org" "Inbox")
-                   "* TODO %i%?")
-                  ("l" "Link" entry (file+headline "~/Stuff/org/inbox.org" "Inbox")
-                   "* %? %i\n  %a"))
-                org-agenda-prefix-format
-                ;; I want to show the project each todo is part of. The %b in
-                ;; todo means "breadcrumbs," i.e., ancestor items.
-                '((agenda . " %i %-12:c%?-12t% s")
-                  (todo . " %i %b")
-                  (tags . " %i %-12:c")
-                  (search . " %i %-12:c"))
-                org-pretty-entities t
-                org-agenda-window-setup 'current-window))
-
-;; Use pretty org bullets
-;; default: ◉ ○ ✸ ✿
-;; others: ♥ ● ◇ ✚ ✜ ☯ ◆ ♠ ♣ ♦ ☢ ❀ ◆ ◖ ▶ ► • ★ ▸
-(use-package org-bullets
-  :hook (org-mode . org-bullets-mode)
-  :init (setq org-bullets-bullet-list '("●" "○")))
-
-;; ;; old org-mode
-;; (if (string-match "GNU Emacs 22" (version))
-;;   (progn
-;;     (add-to-list 'load-path "~/Dropbox/software/emacs-packages/org-7.7/lisp")
-;;     (require 'org-install)
-;;     (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
-;;     (global-set-key "\C-cl" 'org-store-link)
-;;     (global-set-key "\C-cc" 'org-capture)
-;;     (global-set-key "\C-ca" 'org-agenda)
-;;     (global-set-key "\C-cb" 'org-iswitchb)
-;; ;;    (setq-default org-replace-disputed-keys t)
-;; ;;    (setq-default org-startup-indented t)
-;;     (add-hook 'org-mode-hook
-;;       (lambda ()
-;;         (local-set-key [A-up] 'org-move-subtree-up)
-;;         (local-set-key [A-down] 'org-move-subtree-down)))
-;;     ; tell org-mode not to steal S-C-arrows
-;;     (defun org-remove-bindings ()
-;;       (define-key org-mode-map [S-C-up] nil)
-;;       (define-key org-mode-map [S-C-down] nil)
-;;       (define-key org-mode-map [S-C-right] nil)
-;;       (define-key org-mode-map [S-C-left] nil))
-;;     (eval-after-load "org" '(org-remove-bindings))
-;;     ))
 
 ;; use ido-mode and related extras
 ;; I don't like ido
