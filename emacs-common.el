@@ -114,8 +114,8 @@
 (global-set-key [f2] (my-numbered-shell 2))
 (global-set-key [f3] (my-numbered-shell 3))
 (global-set-key [f4] (my-numbered-shell 4))
-;; compile program
-(global-set-key [f5] 'compile)
+;; toggle linum-mode
+(global-set-key [f5] 'my-toggle-linum-and-fringe)
 ;; open a new eshell terminal
 (defun eshell-new () (interactive) (eshell 1))
 (global-set-key [f6] 'eshell-new)
@@ -360,10 +360,10 @@ point reaches the beginning or end of the buffer, stop there."
 (use-package linum
   :init
   (add-hook 'prog-mode-hook 'linum-mode)
-
   :config
-  (defun linum-fringe-toggle ()
-    "Toggles the line numbers as well as the fringe."    (interactive)
+  (defun my-toggle-linum-and-fringe ()
+    "Toggles the line numbers as well as the fringe."
+    (interactive)
     (cond (linum-mode (fringe-mode '(0 . 0))
                       (linum-mode -1))
           (t          (fringe-mode '(8 . 0))
