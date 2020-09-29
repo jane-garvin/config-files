@@ -270,7 +270,7 @@ point reaches the beginning or end of the buffer, stop there."
 (global-unset-key [s-left])
 (global-unset-key [s-right])
 
-;; More sensible binding for ⌘-n
+;; More sensible binding for ⌘-n instead of making a new frame
 (defun my-new-buffer () (interactive)
        (let ((buf (generate-new-buffer "untitled")))
          (switch-to-buffer buf)
@@ -280,6 +280,9 @@ point reaches the beginning or end of the buffer, stop there."
 
 (global-set-key (kbd "C-c e r") 'eval-region)
 (global-set-key (kbd "C-c e b") 'eval-buffer)
+
+;; More sensible binding for ⌘-w instead of killing the frame
+(global-set-key (kbd "s-w") 'kill-buffer-and-window)
 
 ;;;; ----- display -----
 
