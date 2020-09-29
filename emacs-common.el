@@ -427,25 +427,6 @@ point reaches the beginning or end of the buffer, stop there."
   (savehist-mode 1)
   ;; Remember where my cursor was
   (save-place-mode 1))
-(defun my-desktop+-init ()
-  "Use desktop+ so that we also save narrowed and other indirect buffers."
-  (let* ((my-desktop-name "main")
-         (my-desktop-directory
-          (concat user-emacs-directory "desktops/" my-desktop-name)))
-    (if (file-exists-p my-desktop-directory)
-      (desktop+-load my-desktop-name)
-      (progn
-        (desktop+-create my-desktop-name)
-        (desktop+-load my-desktop-name)))))
-(use-package desktop+
-  :after desktop
-  :config
-  (add-hook 'emacs-startup-hook 'my-desktop+-init))
-;; If emacs didn't exit cleanly because of a crash, a power outage, etc., it
-;; will leave a stale desktop lock file. When emacs starts again, it will think
-;; the desktop file is locked, even though the PID it thinks is locking the file
-;; doesn't exist anymore. Delete the lock file on startup if the owning PID is
-;; no longer alive.
 (defun my-remove-stale-lock-file (dir)
   (let ((pid (desktop-owner dir)))
     (when pid
