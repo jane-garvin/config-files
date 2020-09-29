@@ -284,6 +284,28 @@ point reaches the beginning or end of the buffer, stop there."
 ;; More sensible binding for ⌘-w instead of killing the frame
 (global-set-key (kbd "s-w") 'kill-buffer-and-window)
 
+;; Make ⌘-digit select the nth frame.
+(defmacro my-select-numbered-frame (n)
+  "Select the Nth frame, where 1 is the frame created first."
+  `(lambda ()
+     (interactive)
+     (let ((f (nth (1- ,n) (nreverse (frame-list)))))
+       (if f
+         (select-frame-set-input-focus f)
+         (let ((nf (length (frame-list))))
+           (if (= nf 1)
+             (error "Only %d frame" nf)
+             (error "Only %d frames" nf)))))))
+(global-set-key (kbd "s-1") (my-select-numbered-frame 1))
+(global-set-key (kbd "s-2") (my-select-numbered-frame 2))
+(global-set-key (kbd "s-3") (my-select-numbered-frame 3))
+(global-set-key (kbd "s-4") (my-select-numbered-frame 4))
+(global-set-key (kbd "s-5") (my-select-numbered-frame 5))
+(global-set-key (kbd "s-6") (my-select-numbered-frame 6))
+(global-set-key (kbd "s-7") (my-select-numbered-frame 7))
+(global-set-key (kbd "s-8") (my-select-numbered-frame 8))
+(global-set-key (kbd "s-9") (my-select-numbered-frame 9))
+
 ;;;; ----- display -----
 
 ;; UTF-8 as default encoding
