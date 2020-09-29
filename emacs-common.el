@@ -28,7 +28,6 @@
       '(("gnu"          . "https://elpa.gnu.org/packages/")
         ("melpa-stable" . "https://melpa.org/packages/")))
 (setq-default package-enable-at-startup t)
-(package-initialize)
 
 ;; Use use-package to automatically install certain packages
 (unless (package-installed-p 'use-package)
