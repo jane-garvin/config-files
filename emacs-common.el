@@ -701,6 +701,15 @@ org-delete-indentation."
                 org-pretty-entities t
                 org-agenda-window-setup 'current-window))
 
+;; Make org-agenda buffers refresh automatically. The function
+;; `org-agenda-maybe-redo' is perfect for this, but it emits a message about the
+;; agenda restriction lock that I don't need to see every time.
+(defun my-org-agenda-maybe-redo-silently ()
+  "If there is any window showing the agenda view, update it silently."
+  (let ((inhibit-message t))
+    (org-agenda-maybe-redo)))
+(run-with-idle-timer 1 t 'my-org-agenda-maybe-redo-silently)
+
 ;; Use pretty org bullets
 ;; default: ◉ ○ ✸ ✿
 ;; others: ♥ ● ◇ ✚ ✜ ☯ ◆ ♠ ♣ ♦ ☢ ❀ ◆ ◖ ▶ ► • ★ ▸
@@ -745,9 +754,9 @@ org-delete-indentation."
 ;; 80 columns, not 70
 (setq-default fill-column 80)
 ;; automatically update files when changed, quietly
-(global-auto-revert-mode)
 (setq-default global-auto-revert-non-file-buffers t)
 (setq-default auto-revert-verbose nil)
+(global-auto-revert-mode)
 ;; large files are OK
 (setq-default large-file-warning-threshold nil)
 ;; find files case-insensitively
