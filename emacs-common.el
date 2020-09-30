@@ -121,17 +121,16 @@
 ;; toggle colors
 (global-set-key [f7] 'font-lock-mode)
 
-;; use control-arrow keys to move between windows
+;; use ⌘-arrow keys to move between windows
 (use-package windmove
-  :init (windmove-default-keybindings 'control))
+  :config (windmove-default-keybindings 'super))
 
-;; Use buffer-move: use ctrl-shift-arrows to move buffers between windows
+;; Use buffer-move: use M-⌘-arrows to switch buffers between windows
 (use-package buffer-move
-  :bind (([C-S-up] . 'buf-move-up)
-	 ([C-S-down] . 'buf-move-down)
-	 ([C-S-right] . 'buf-move-right)
-	 ([C-S-left] . 'buf-move-left)
-	 ))
+  :bind (("M-s-<up>" . 'buf-move-up)
+	 ("M-s-<down>" . 'buf-move-down)
+	 ("M-s-<right>" . 'buf-move-right)
+	 ("M-s-<left>" . 'buf-move-left)))
 
 ;; use ace-jump to navigate within windows
 (use-package ace-jump-mode
@@ -174,11 +173,6 @@
 
 ;; make tab first indent, then complete (instead of just indenting)
 (setq-default tab-always-indent 'complete)
-
-;; By default fn-up and ⌥-up are both mapped scroll-up-command. Give ⌘-up
-;; and ⌘-down more useful bindings.
-(global-set-key [s-up] 'scroll-up-line)
-(global-set-key [s-down] 'scroll-down-line)
 
 (use-package which-key
   :defer 10
@@ -262,12 +256,6 @@ point reaches the beginning or end of the buffer, stop there."
 
 ;; remap C-a to ‘smarter-move-beginning-of-line’
 (global-set-key [remap move-beginning-of-line] 'smarter-move-beginning-of-line)
-
-;; By default ⌘-left and ⌘-right map to ns-next-frame and ns-previous-frame,
-;; which is way too easy to mistype. If I want to switch frames, that's what s-`
-;; is for.
-(global-unset-key [s-left])
-(global-unset-key [s-right])
 
 ;; More sensible binding for ⌘-n instead of making a new frame
 (defun my-new-buffer () (interactive)
@@ -564,7 +552,19 @@ point reaches the beginning or end of the buffer, stop there."
 (use-package elpy
   :init
   (elpy-enable)
-  (delete 'elpy-module-highlight-indentation elpy-modules))
+  ;; Remove elpy's indentation highlighting because I use
+  ;; highlight-indent-guides for that.
+  (delete 'elpy-module-highlight-indentation elpy-modules)
+  :bind (:map elpy-mode-map
+              ;; Switch elpy's C-arrows and M-arrows
+              ("M-<up>" . elpy-nav-backward-block)
+              ("M-<down>" . elpy-nav-forward-block)
+              ("M-<right>" . elpy-nav-forward-indent)
+              ("M-<left>" . elpy-nav-backward-indent)
+              ("C-<up>" . elpy-nav-move-line-or-region-up)
+              ("C-<down>" . elpy-nav-move-line-or-region-down)
+              ("C-<right>" . elpy-nav-indent-shift-right)
+              ("C-<left>" . elpy-nav-indent-shift-left)))
 
 ;; rnc-mode for RELAX NG
 (use-package rnc-mode)
@@ -654,11 +654,11 @@ org-delete-indentation."
         ;; left-word and right-word like everywhere else
         ("M-<right>" . right-word)
         ("M-<left>" . left-word)
-        ;; Map ⌘-arrows to what is normally meta-arrows
-        ("s-<up>" . org-metaup)
-        ("s-<down>" . org-metadown)
-        ("s-<right>" . org-metaright)
-        ("s-<left>" . org-metaleft)
+        ;; Map ctrl-arrows to what is normally meta-arrows
+        ("C-<up>" . org-metaup)
+        ("C-<down>" . org-metadown)
+        ("C-<right>" . org-metaright)
+        ("C-<left>" . org-metaleft)
         ;; Switch return and M-return
         ("<return>" . org-meta-return)
         ("M-<return>" . org-return)
