@@ -115,9 +115,8 @@
 (global-set-key [f4] (my-numbered-shell 4))
 ;; toggle linum-mode
 (global-set-key [f5] 'my-toggle-linum-and-fringe)
-;; open a new eshell terminal
-(defun eshell-new () (interactive) (eshell 1))
-(global-set-key [f6] 'eshell-new)
+;; change line ending appearance
+(global-set-key [f6] 'my-change-line-ending)
 ;; toggle colors
 (global-set-key [f7] 'font-lock-mode)
 
@@ -385,6 +384,25 @@ point reaches the beginning or end of the buffer, stop there."
 (add-hook 'org-mode-hook (lambda () (setq show-trailing-whitespace t)))
 ;; sort completions vertically instead of horizontally
 (setq-default completions-format 'vertical)
+
+;; Set a key to switch line endings between wrapping long lines, truncating long
+;; lines, and word-processor-style word wrap a.k.a. visual-line-mode.
+(defun my-change-line-ending ()
+  "Change line endings in the current buffer.
+   default (wrap) -> truncate-lines -> visual-line-mode -> default (wrap)"
+  (interactive)
+  (cond
+   ;; visual-line-mode -> default
+   (visual-line-mode (progn
+                       (setq truncate-lines nil)
+                       (visual-line-mode 0)))
+   ;; truncate-lines -> visual-line-mode
+   (truncate-lines (progn
+                     (setq truncate-lines nil)
+                     (visual-line-mode)))
+   ;; default -> truncate-lines
+   (t (setq truncate-lines t))))
+(global-set-key (kbd "C-c l") 'my-change-line-ending)
 
 ;;;; ----- terminal and shells -----
 
