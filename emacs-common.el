@@ -717,7 +717,9 @@ org-delete-indentation."
                   (tags . " %i %-12:c")
                   (search . " %i %-12:c"))
                 org-pretty-entities t
-                org-agenda-window-setup 'current-window))
+                org-agenda-window-setup 'current-window
+                ;; require {} in subscripts and superscripts
+                org-use-sub-superscripts '{}))
 
 ;; Make org-agenda buffers refresh automatically. The function
 ;; `org-agenda-maybe-redo' is perfect for this, but it emits a message about the
