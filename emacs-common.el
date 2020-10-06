@@ -695,19 +695,23 @@ org-delete-indentation."
                 org-support-shift-select t
                 org-todo-keywords '((sequence
                                      "TODO(t)"
+                                     "NEXT(n)"
                                      "IN PROGRESS(p)"
-                                     "WAITING(w)"
+                                     "WAITING(w@)"
                                      "|"
                                      "DONE(d)"
-                                     "CANCELED(c@)"))
+                                     "CANCELED(c@)"
+                                     "TRASH(t)"))
                 org-log-done 'time
                 org-startup-folded nil
-                org-directory "~/Stuff/org"
-                org-default-notes-file (concat org-directory "/inbox.org")
+                my-org-inbox-file (concat org-directory "inbox.org")
+                my-org-projects-file (concat org-directory "projects.org")
+                org-default-notes-file my-org-inbox-file
+                org-agenda-files (list my-org-inbox-file my-org-projects-file)
                 org-capture-templates
-                '(("t" "Todo" entry (file+headline "~/Stuff/org/inbox.org" "Inbox")
+                '(("t" "Todo" entry (file my-org-inbox-file)
                    "* TODO %i%?")
-                  ("l" "Link" entry (file+headline "~/Stuff/org/inbox.org" "Inbox")
+                  ("l" "Link" entry (file my-org-inbox-file)
                    "* %? %i\n  %a"))
                 org-agenda-prefix-format
                 ;; I want to show the project each todo is part of. The %b in
@@ -736,6 +740,21 @@ org-delete-indentation."
 (use-package org-bullets
   :hook (org-mode . org-bullets-mode)
   :init (setq org-bullets-bullet-list '("●" "○")))
+
+(use-package org-gtd
+  :after org
+  :custom
+  (org-edna-use-inheritance t)
+  (org-edna-load)
+  :bind
+  (("C-c d c" . org-gtd-capture)
+  ("C-c d a" . org-agenda-list)
+  ("C-c d p" . org-gtd-process-inbox)
+  ("C-c d n" . org-gtd-show-all-next)
+  ("C-c d s" . org-gtd-show-stuck-projects))
+  :init
+   ;; when you're done editing an item in the processing phase
+  (bind-key "C-c f" 'org-gtd-clarify-finalize))
 
 ;; ;; old org-mode
 ;; (if (string-match "GNU Emacs 22" (version))
