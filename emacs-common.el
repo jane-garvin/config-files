@@ -292,6 +292,10 @@ point reaches the beginning or end of the buffer, stop there."
 (global-set-key (kbd "s-8") (my-select-numbered-frame 8))
 (global-set-key (kbd "s-9") (my-select-numbered-frame 9))
 
+;; I use fit-window-to-buffer pretty often, and I almost never use the default
+;; binding set-fill-column.
+(global-set-key (kbd "C-x f") 'fit-window-to-buffer)
+
 ;;;; ----- display -----
 
 ;; UTF-8 as default encoding
