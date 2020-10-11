@@ -729,7 +729,8 @@ org-delete-indentation."
                 ;; require {} in subscripts and superscripts
                 org-use-sub-superscripts '{}
                 org-use-fast-todo-selection 'expert
-                org-hide-emphasis-markers t))
+                org-hide-emphasis-markers t
+                org-startup-align-all-tables t))
 
 ;; Make org-agenda buffers refresh automatically. The function
 ;; `org-agenda-maybe-redo' is perfect for this, but it emits a message about the
