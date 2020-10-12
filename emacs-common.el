@@ -327,7 +327,7 @@ point reaches the beginning or end of the buffer, stop there."
    frame (list (cons 'cursor-color (face-attribute 'cursor :background)))))
 (add-hook 'after-make-frame-functions 'set-cursor-hook)
 
-;; enable emoji
+;; enable emoji 😎
 (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend)
 ;; Use my favorite monospace font if it's available
 (let ((my-fonts '("Inconsolata" "Inconsolata for Powerline")))
