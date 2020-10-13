@@ -858,21 +858,19 @@ org-delete-indentation."
 ;; use c++-mode for Metal files (close enough)
 (add-to-list 'auto-mode-alist '("\\.metal\\'" . c++-mode))
 
-
 ;; use ido-mode and related extras
-;; I don't like ido
-;; (setq ido-enable-flex-matching t)
-;; (setq ido-everywhere t)
-;; (ido-mode 1)
-;; (setq ido-use-filename-at-point 'guess)
-;; (use-package ido-vertical-mode
-;;   :init
-;;   (ido-vertical-mode 1))
-;; (use-package flx-ido
-;;   :init
-;;   (flx-ido-mode 1)
-;;   :custom
-;;   (ido-use-faces nil))
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(ido-mode 1)
+(setq ido-use-filename-at-point 'guess)
+(use-package ido-vertical-mode
+   :init
+   (ido-vertical-mode 1))
+(use-package flx-ido
+   :init
+   (flx-ido-mode 1)
+   :custom
+   (ido-use-faces nil))
 
 ;; use graphviz mode for dot files
 (use-package graphviz-dot-mode)
