@@ -177,3 +177,6 @@ setopt interactivecomments
 # I want undefined variables to be an error
 # turning off because it breaks zsh spaceship prompt
 #setopt nounset
+
+# Define a config file for ripgrep.
+export RIPGREP_CONFIG_PATH="${HOME}/.config/rg"
