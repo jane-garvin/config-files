@@ -737,8 +737,9 @@ org-delete-indentation."
 ;; agenda restriction lock that I don't need to see every time.
 (defun my-org-agenda-maybe-redo-silently ()
   "If there is any window showing the agenda view, update it silently."
-  (let ((inhibit-message t))
-    (org-agenda-maybe-redo)))
+  (when (fboundp 'org-agenda-maybe-redo)
+    (let ((inhibit-message t))
+      (org-agenda-maybe-redo))))
 (run-with-idle-timer 1 t 'my-org-agenda-maybe-redo-silently)
 
 ;; Use pretty org bullets
