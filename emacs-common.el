@@ -14,6 +14,7 @@
 ;; Turning off compacting of font caches increases memory footprint but avoids
 ;; serious rendering slowdown.
 (setq inhibit-compacting-font-caches t)
+
 ;;;; ----- server -----
 
 ;; start emacs-server if not already running
