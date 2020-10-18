@@ -940,3 +940,9 @@ org-delete-indentation."
 ;; use graphviz mode for dot files
 (use-package graphviz-dot-mode)
 
+;; typo-mode for correct quotation marks, dashes, etc.
+(use-package typo
+  :config
+  (typo-global-mode 1)
+  :hook
+  (text-mode . typo-mode))
