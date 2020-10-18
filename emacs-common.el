@@ -581,6 +581,8 @@ point reaches the beginning or end of the buffer, stop there."
   ;; Remove elpy's indentation highlighting because I use
   ;; highlight-indent-guides for that.
   (delete 'elpy-module-highlight-indentation elpy-modules)
+  ;; Note: To make jedi work, install the jedi package via M-x elpy-config.
+  (setq elpy-rpc-backend "jedi")
   :bind (:map elpy-mode-map
               ;; Switch elpy's C-arrows and M-arrows
               ("M-<up>" . elpy-nav-backward-block)
@@ -590,7 +592,9 @@ point reaches the beginning or end of the buffer, stop there."
               ("C-<up>" . elpy-nav-move-line-or-region-up)
               ("C-<down>" . elpy-nav-move-line-or-region-down)
               ("C-<right>" . elpy-nav-indent-shift-right)
-              ("C-<left>" . elpy-nav-indent-shift-left)))
+              ("C-<left>" . elpy-nav-indent-shift-left)
+              ;; Use jedi to goto definition
+              ("M-." . elpy-goto-definition)))
 
 ;; rnc-mode for RELAX NG
 (use-package rnc-mode)
