@@ -117,7 +117,14 @@
 
 ;; f1-f4: start shells
 (defmacro my-numbered-shell (n)
-  `(lambda () (interactive) (shell (get-buffer-create (format "*shell*<%d>" ,n)))))
+  "Quick shell access.
+Create a shell, or switch to an existing shell, in the current
+window based on the given number N."
+  `(lambda () (interactive)
+     (shell
+      (switch-to-buffer
+       (get-buffer-create
+        (format "*shell*<%d>" ,n))))))
 (global-set-key [f1] (my-numbered-shell 1))
 (global-set-key [f2] (my-numbered-shell 2))
 (global-set-key [f3] (my-numbered-shell 3))
