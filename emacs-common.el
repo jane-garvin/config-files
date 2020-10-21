@@ -955,7 +955,7 @@ org-delete-indentation."
 ;; typo-mode for correct quotation marks, dashes, etc.
 (use-package typo
   :config
-  (typo-global-mode 1)
+  (typo-global-mode)
   :hook
   (text-mode . typo-mode))
 
