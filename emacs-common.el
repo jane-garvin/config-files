@@ -82,6 +82,11 @@
 (setq auto-save-visited-interval 1)
 (auto-save-visited-mode)
 
+;; direx is a kind of tree-based version of dired
+(use-package direx
+  :bind
+  ("C-x C-j" . direx:jump-to-directory))
+
 ;;;; ----- keys and shortcuts -----
 
 ;; listen to modified arrows from terminal
