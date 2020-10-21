@@ -946,3 +946,6 @@ org-delete-indentation."
   (typo-global-mode 1)
   :hook
   (text-mode . typo-mode))
+
+;; ripgrep is handy for searching
+(use-package rg)
