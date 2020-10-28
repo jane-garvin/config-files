@@ -539,7 +539,6 @@ point reaches the beginning or end of the buffer, stop there."
           magit-push-always-verify nil
           ;; Get rid of the previous advice to go into fullscreen
           magit-restore-window-configuration t)
-    (add-hook 'after-save-hook 'magit-after-save-refresh-status t)
   :bind
     ("C-c g d" . magit-diff-unstaged)
     ("C-c g f" . magit-fetch-all)
