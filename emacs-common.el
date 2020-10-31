@@ -945,8 +945,9 @@ org-delete-indentation."
   (ido-mode 1)
   (ido-everywhere 1))
 (use-package ido-vertical-mode
-   :init
-   (ido-vertical-mode 1))
+   :config
+   (ido-vertical-mode 1)
+   (setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right))
 (use-package flx-ido
    :init
    (flx-ido-mode 1)
