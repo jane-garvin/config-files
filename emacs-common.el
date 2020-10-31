@@ -65,6 +65,7 @@
 ;;  ;; Use human-readable size formats.
 ;;  (setq dired-du-size-format t))
 
+;; Better way of differentiating buffers with the same name
 (require 'uniquify)
 (setq-default uniquify-buffer-name-style 'forward)
 
