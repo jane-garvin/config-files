@@ -934,10 +934,16 @@ org-delete-indentation."
 (add-to-list 'auto-mode-alist '("\\.metal\\'" . c++-mode))
 
 ;; use ido-mode and related extras
-(setq ido-enable-flex-matching t)
-(setq ido-everywhere t)
-(ido-mode 1)
-(setq ido-use-filename-at-point 'guess)
+(use-package ido
+  :ensure t
+  :init  (setq ido-enable-flex-matching t
+               ido-ignore-extensions t
+               ido-use-virtual-buffers t
+               ido-everywhere t
+               ido-use-filename-at-point 'guess)
+  :config
+  (ido-mode 1)
+  (ido-everywhere 1))
 (use-package ido-vertical-mode
    :init
    (ido-vertical-mode 1))
