@@ -31,17 +31,11 @@
 (setq package-archives
       '(("gnu"          . "https://elpa.gnu.org/packages/")
         ("melpa-stable" . "https://melpa.org/packages/")))
-(setq-default package-enable-at-startup t)
 
 ;; Use use-package to automatically install certain packages
 (unless (package-installed-p 'use-package)
-  (package-refresh-contents)
   (package-install 'use-package))
 (require 'use-package)
-
-;; Install packages if necessary
-(require 'use-package-ensure)
-(setq use-package-always-ensure t)
 
 ;; Automatically refresh package contents on a regular basis
 (use-package auto-package-update
@@ -66,8 +60,9 @@
 ;;  (setq dired-du-size-format t))
 
 ;; Better way of differentiating buffers with the same name
-(require 'uniquify)
-(setq-default uniquify-buffer-name-style 'forward)
+(use-package uniquify-files
+  :config
+  (setq-default uniquify-buffer-name-style 'forward))
 
 ;; put backup files in a separate directory
 (setq my-backup-directory (expand-file-name (concat user-emacs-directory "backups")))
@@ -532,7 +527,6 @@ point reaches the beginning or end of the buffer, stop there."
 ;;   ;; c-mode-common-hook is also called by c++-mode
 ;;   (add-hook 'c-mode-common-hook #'setup-flycheck-rtags))
 
-(require 'magit)
 (use-package magit
   :commands magit-status magit-blame
   :config
@@ -561,8 +555,8 @@ point reaches the beginning or end of the buffer, stop there."
   ("C-c C-i" . haskell-process-do-info))
   :hook
   (haskell-mode . interactive-haskell-mode))
-(require 'haskell-interactive-mode)
-(require 'haskell-process)
+;(require haskell-interactive-mode)
+;(require haskell-process)
 (use-package hlint-refactor
   :init
   (setq-default hs-lint-replace-with-suggestions nil)
@@ -1000,3 +994,5 @@ prefix argument."
 (use-package whole-line-or-region
   :init
   (whole-line-or-region-global-mode))
+
+(provide 'emacs-common)
