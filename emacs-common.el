@@ -33,8 +33,6 @@
         ("melpa-stable" . "https://melpa.org/packages/")))
 
 ;; Use use-package to automatically install certain packages
-(unless (package-installed-p 'use-package)
-  (package-install 'use-package))
 (require 'use-package)
 
 ;; Automatically refresh package contents on a regular basis
@@ -598,7 +596,8 @@ point reaches the beginning or end of the buffer, stop there."
               ("C-<right>" . elpy-nav-indent-shift-right)
               ("C-<left>" . elpy-nav-indent-shift-left)
               ;; Use jedi to goto definition
-              ("M-." . elpy-goto-definition)))
+              ("M-." . elpy-goto-definition))
+  :defer 2)
 
 ;; rnc-mode for RELAX NG
 (use-package rnc-mode)
@@ -615,7 +614,8 @@ point reaches the beginning or end of the buffer, stop there."
 ;;;; ----- projects and spaces -----
 
 (use-package projectile
-  :init (projectile-global-mode 1))
+  :init (projectile-global-mode 1)
+  :defer 2)
 
 (define-key projectile-mode-map (kbd "M-p") 'projectile-command-map)
 
@@ -746,7 +746,8 @@ org-delete-indentation."
                 org-use-sub-superscripts '{}
                 org-use-fast-todo-selection 'expert
                 org-hide-emphasis-markers t
-                org-startup-align-all-tables t))
+                org-startup-align-all-tables t)
+  :defer 2)
 
 ;; Make org-agenda buffers refresh automatically. The function
 ;; `org-agenda-maybe-redo' is perfect for this, but it emits a message about the
