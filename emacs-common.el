@@ -872,6 +872,31 @@ org-delete-indentation."
 ;; expand-region enlarges the region by semantic units
 (use-package expand-region
   :bind ("C-=" . er/expand-region))
+
+;; From https://github.com/howardabrams/dot-files/blob/06f1e666e78c606ab32114426b69ec0ecf9a503e/emacs-fixes.org
+;; Macro that moves to beginning of line before calling a function.
+(defmacro bol-with-prefix (function)
+  "Define a new function which calls FUNCTION.
+Except it moves to beginning of line before calling FUNCTION when
+called with a prefix argument. The FUNCTION still receives the
+prefix argument."
+  (let ((name (intern (format "ha/%s-BOL" function))))
+    `(progn
+       (defun ,name (p)
+         ,(format
+           "Call `%s', but move to the beginning of the line when called with a prefix argument."
+           function)
+         (interactive "P")
+         (when p
+           (forward-line 0))
+         (call-interactively ',function))
+       ',name)))
+
+;; Make C-k kill the whole line when called with a prefix argument.
+(global-set-key [remap org-kill-line] (bol-with-prefix org-kill-line))
+(global-set-key [remap kill-line] (bol-with-prefix kill-line))
+(global-set-key (kbd "C-k") (bol-with-prefix kill-line))
+
 ;; C'mon, emacs, there's only one space between sentences.
 (setq-default sentence-end-double-space nil)
 ;; use spaces to indent, not tabs
