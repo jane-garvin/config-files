@@ -609,6 +609,10 @@ point reaches the beginning or end of the buffer, stop there."
 ;; rnc-mode for RELAX NG
 (use-package rnc-mode)
 
+;; Swift
+(use-package swift-mode)
+
+;; show indentation with dotted lines
 (use-package highlight-indent-guides
   :hook (prog-mode . highlight-indent-guides-mode)
   :config
