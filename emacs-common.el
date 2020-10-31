@@ -959,3 +959,8 @@ org-delete-indentation."
 
 ;; ripgrep is handy for searching
 (use-package rg)
+
+;; Use C-w to kill whole line when region is not active
+(use-package whole-line-or-region
+  :init
+  (whole-line-or-region-global-mode))
