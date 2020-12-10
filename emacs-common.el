@@ -35,6 +35,9 @@
 ;; Use use-package to automatically install certain packages
 (require 'use-package)
 
+;; Install packages if necessary
+(setq use-package-always-ensure t)
+
 ;; Automatically refresh package contents on a regular basis
 (use-package auto-package-update
   :config
