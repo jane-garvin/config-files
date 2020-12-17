@@ -711,7 +711,7 @@ org-delete-indentation."
         ("C-d" . my-org-delete-char)
         ("C-k" . my-org-kill-line)
         ("M-^" . my-org-delete-indentation))
-  :init
+  :config
   (setq-default org-special-ctrl-a/e t
                 org-return-follows-link t
                 org-replace-disputed-keys t
