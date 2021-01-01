@@ -6,9 +6,11 @@
 
 export EDITOR=emacsclient
 
-PATH+=:/opt/homebrew/bin
-PATH+=:~/Stuff/bin
-PATH+=:/Applications/Emacs.app/Contents/MacOS/bin
+typeset -U path              # Make sure $path doesn't contain duplicates
+
+path+=(/opt/homebrew/bin)
+path+=(~/Stuff/bin)
+path+=(/Applications/Emacs.app/Contents/MacOS/bin)
 
 # XDG base directory
 export XDG_CONFIG_HOME="${HOME}/.config"
