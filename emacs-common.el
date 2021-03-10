@@ -700,9 +700,6 @@ org-delete-indentation."
         ("C-<down>" . org-metadown)
         ("C-<right>" . org-metaright)
         ("C-<left>" . org-metaleft)
-        ;; Switch return and M-return
-        ("<return>" . org-meta-return)
-        ("M-<return>" . org-return)
         ;; Use ctrl-t for changing todo state (I never use it for
         ;; transposing characters)
         ("C-t" . org-todo)
