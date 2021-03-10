@@ -964,7 +964,9 @@ prefix argument."
                ido-ignore-extensions t
                ido-use-virtual-buffers t
                ido-everywhere t
-               ido-use-filename-at-point 'guess)
+               ido-use-filename-at-point 'guess
+               ;; open a buffer in this window even if it's open in another frame
+               ido-default-buffer-method 'selected-window)
   :config
   (ido-mode 1)
   (ido-everywhere 1))
