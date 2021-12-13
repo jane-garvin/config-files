@@ -951,8 +951,9 @@ prefix argument."
 ;; find everything else case-insensitively
 (setq-default completion-ignore-case t)
 ;; store more undo data
-(setq-default undo-limit 300000)
-(setq-default undo-strong-limit 600000)
+(setq-default undo-limit (* 300 1000))
+(setq-default undo-strong-limit (* 1 1000 1000))
+(setq-default undo-outer-limit (* 120 1000 1000))
 ;; I don't want to have to type "yes"
 (fset 'yes-or-no-p 'y-or-n-p)
 ;; keep point in the middle when scrolling
