@@ -656,7 +656,7 @@ point reaches the beginning or end of the buffer, stop there."
 ;;;; ----- projects and spaces -----
 
 (use-package projectile
-  :init (projectile-global-mode 1)
+  :init (projectile-mode 1)
   :defer 2)
 
 (define-key projectile-mode-map (kbd "M-p") 'projectile-command-map)
