@@ -855,9 +855,10 @@ org-delete-indentation."
   ;; Enable company-mode globally.
   (global-company-mode)
   ;; Except when you're in term-mode.
-  (setq company-global-modes '(not term-mode))
+  (setq company-global-modes '(and (not term-mode) (not shell-mode)))
   ;; Give Company a decent default configuration.
-  (setq company-minimum-prefix-length 2
+  (setq company-minimum-prefix-length 3
+        company-idle-delay 0.5
         company-selection-wrap-around t
         company-show-numbers t
         company-tooltip-align-annotations t
