@@ -1047,4 +1047,14 @@ prefix argument."
   :init
   (whole-line-or-region-global-mode))
 
+;; By default scrolling with Ctrl changes the face height. Turn that off.
+(global-set-key (kbd "<C-wheel-up>") 'mwheel-scroll)
+(global-set-key (kbd "<C-wheel-down>") 'mwheel-scroll)
+;; Make modifier keys affect scrolling speed.
+;; No modifier keys: scroll normally.
+;; Shift: scroll slower.
+;; Control: scroll faster.
+;; Meta: Ludicrous Speed.
+(setq-default mouse-wheel-scroll-amount '(5 ((shift) . 1) ((control) . 25) ((meta) . 10000)))
+
 (provide 'emacs-common)
