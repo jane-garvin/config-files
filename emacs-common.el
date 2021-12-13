@@ -483,12 +483,13 @@ point reaches the beginning or end of the buffer, stop there."
 (setq-default comint-scroll-to-bottom-on-input t)
 ;; follow output
 (setq-default comint-move-point-for-output t)
-;; In comint, keep the same windmove bindings of C-up and C-down used everywhere
-;; else; use M-up and M-down for previous and next input instead
+;; ignore duplicate history entries
+(setq comint-input-ignoredups t)
+;; make an easy way to stop scrolling through history
+(define-key comint-mode-map (kbd "C-<right>") 'comint-restore-input)
+;; in comint-mode, make M-up and M-down work like C-up and C-down
 (define-key comint-mode-map (kbd "M-<up>") 'comint-previous-input)
 (define-key comint-mode-map (kbd "M-<down>") 'comint-next-input)
-(define-key comint-mode-map (kbd "C-<up>") 'windmove-up)
-(define-key comint-mode-map (kbd "C-<down>") 'windmove-down)
 ;; Make M-. do insert-last-word like it does in terminal zsh
 (define-key comint-mode-map (kbd "M-.") 'comint-insert-previous-argument)
 
