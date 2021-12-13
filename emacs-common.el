@@ -460,7 +460,7 @@ point reaches the beginning or end of the buffer, stop there."
 (setenv "PAGER" "cat")
 
 ;; By default, eshell doesn't know about the nice executables installed by
-;; MacPorts in /opt/local/bin. Use what I already have in .zshrc.
+;; MacPorts or Homebrew. Use what I already have in .zshrc.
 (use-package exec-path-from-shell
   :init (exec-path-from-shell-initialize))
 
@@ -706,7 +706,7 @@ org-delete-char."
   (org-delete-char n))
 
 (defun my-org-kill-line (&optional arg)
-    "If point is at end of line, delete indentation at beginning
+  "If point is at end of line, delete indentation at beginning
 of next line. Then, in any case, call org-kill-line."
   (interactive "P")
   (when (= (point) (line-end-position)) (my-delete-leading-stars 2))
