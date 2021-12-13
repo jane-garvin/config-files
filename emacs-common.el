@@ -1037,7 +1037,10 @@ prefix argument."
   (text-mode . typo-mode))
 
 ;; ripgrep is handy for searching
-(use-package rg)
+(use-package ripgrep
+  :config
+   ;; /usr/local/bin is in exec-path, so I don't know why executable-find isn't working
+  (setq rg-executable "/usr/local/bin/rg"))
 
 ;; Use C-w to kill whole line when region is not active
 (use-package whole-line-or-region
