@@ -958,6 +958,9 @@ prefix argument."
 (fset 'yes-or-no-p 'y-or-n-p)
 ;; keep point in the middle when scrolling
 (setq-default scroll-preserve-screen-position t)
+;; scroll for visibility when within 5 lines of top or bottom
+(setq-default scroll-margin 5)
+
 ;; enable emacs to use the Mac system clipboard for cut, copy, and paste
 (defun paste-to-osx (text &optional push)
   (interactive)
