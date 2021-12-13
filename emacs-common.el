@@ -575,8 +575,8 @@ point reaches the beginning or end of the buffer, stop there."
     ("C-c g l" . magit-log)
     ("C-c g s" . magit-status))
 
-(use-package flycheck
-  :init (global-flycheck-mode))
+;;(use-package flycheck
+;;  :init (global-flycheck-mode))
 
 (use-package haskell-mode
   :init
