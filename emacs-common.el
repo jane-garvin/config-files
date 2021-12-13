@@ -164,8 +164,8 @@ window based on the given number N."
 (global-set-key [f2] (my-numbered-shell 2))
 (global-set-key [f3] (my-numbered-shell 3))
 (global-set-key [f4] (my-numbered-shell 4))
-;; toggle linum-mode
-(global-set-key [f5] 'my-toggle-linum-and-fringe)
+;; toggle line numbers
+(global-set-key [f5] 'display-line-numbers-mode)
 ;; change line ending appearance
 (global-set-key [f6] 'my-change-line-ending)
 ;; toggle colors
@@ -422,19 +422,8 @@ point reaches the beginning or end of the buffer, stop there."
 ;; display-time includes load average by default for some reason
 (setq-default display-time-default-load-average nil)
 (display-time-mode 1)
-;; Use linum-mode by default for programming modes
-(use-package linum
-  :init
-  (add-hook 'prog-mode-hook 'linum-mode)
-  :config
-  (defun my-toggle-linum-and-fringe ()
-    "Toggles the line numbers as well as the fringe."
-    (interactive)
-    (cond (linum-mode (fringe-mode '(0 . 0))
-                      (linum-mode -1))
-          (t          (fringe-mode '(8 . 0))
-                      (linum-mode 1)))))
 ;; show trailing whitespace in code buffers and org-mode
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t)))
 (add-hook 'org-mode-hook (lambda () (setq show-trailing-whitespace t)))
 ;; sort completions vertically instead of horizontally
