@@ -650,6 +650,9 @@ point reaches the beginning or end of the buffer, stop there."
   :config
   (setq highlight-indent-guides-method 'bitmap))
 
+;; Markdown
+(use-package markdown-mode)
+
 ;;;; ----- projects and spaces -----
 
 (use-package projectile
