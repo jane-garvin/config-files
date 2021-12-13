@@ -620,8 +620,10 @@ point reaches the beginning or end of the buffer, stop there."
   ;; Remove elpy's indentation highlighting because I use
   ;; highlight-indent-guides for that.
   (delete 'elpy-module-highlight-indentation elpy-modules)
-  ;; Note: To make jedi work, install the jedi package via M-x elpy-config.
+  ;; Note: the following lines require the extra executables to be installed via pip.
   (setq elpy-rpc-backend "jedi")
+  (setq elpy-formatter "black")
+  (setq elpy-syntax-check-command "black")
   :bind (:map elpy-mode-map
               ;; Switch elpy's C-arrows and M-arrows
               ("M-<up>" . elpy-nav-backward-block)
@@ -964,6 +966,8 @@ prefix argument."
 (setq-default c-basic-offset 2)
 ;; 2-space indent for shells, too
 (setq-default sh-basic-offset 2)
+;; 4-space indent for python
+(setq-default python-indent-offset 4)
 ;; When I use C-k to kill the whole line, I want to include the trailing newline
 (setq-default kill-whole-line t)
 
