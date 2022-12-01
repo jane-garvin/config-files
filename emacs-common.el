@@ -373,11 +373,10 @@ point reaches the beginning or end of the buffer, stop there."
       ;; I find the default link color too distracting.
       (set-face-foreground 'link "CornflowerBlue")
       ;; Some of the default ANSI terminal colors are hard to see on a dark background
-      ;; default: ["black" "red3" "green3" "yellow3" "blue2" "magenta3" "cyan3" "gray90"]
-      (setq ansi-color-names-vector
-            ["black" "tomato1" "green3" "yellow3" "RoyalBlue1" "magenta2" "cyan3" "gray90"])))
-      ; I don't know why this fails with "Symbol's function definition is void: ansi-color-make-color-map"
-      ; (setq ansi-color-map (ansi-color-make-color-map))))
+      (set-face-foreground 'ansi-color-red "tomato1")
+      (set-face-foreground 'ansi-color-blue "RoyalBlue1")
+      (set-face-foreground 'ansi-color-magenta "magenta2")))
+
 ;; For some reason the cursor color doesn't follow when you make-frame
 (defun set-cursor-hook (frame)
   (modify-frame-parameters
