@@ -606,6 +606,8 @@ point reaches the beginning or end of the buffer, stop there."
   (setq-default hs-lint-replace-without-ask t)
   :bind (:map haskell-mode-map ("C-c l" . hs-lint)))
 
+(use-package rust-mode)
+
 ;; ediff fixes
 (use-package ediff
   :config
