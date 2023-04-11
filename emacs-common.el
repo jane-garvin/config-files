@@ -498,6 +498,9 @@ point reaches the beginning or end of the buffer, stop there."
 ;; Make M-. do insert-last-word like it does in terminal zsh
 (define-key comint-mode-map (kbd "M-.") 'comint-insert-previous-argument)
 
+;; Let me use the mouse wheel to scroll in multiterm-mode
+(setq-default term-scroll-snap-to-bottom nil)
+
 ;;;; ----- saving desktop and configuration -----
 
 ;; don't bug me about running processes when exiting emacs
