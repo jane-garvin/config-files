@@ -358,7 +358,7 @@ point reaches the beginning or end of the buffer, stop there."
         (string= (getenv "TERM") "xterm-256color"))
     (progn
       ;; These three were originally used at the computers at the Zoo computer
-      ;; cluster at Yale. I always liked them.
+      ;; cluster at Yale circa 2000. I always liked them.
       (set-face-background 'default "DarkSlateGray")
       (set-face-foreground 'default "Wheat")
       (set-face-background 'cursor "Orchid")
