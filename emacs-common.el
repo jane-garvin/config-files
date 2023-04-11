@@ -372,10 +372,14 @@ point reaches the beginning or end of the buffer, stop there."
       (set-face-foreground 'font-lock-function-name-face "Cyan")
       ;; I find the default link color too distracting.
       (set-face-foreground 'link "CornflowerBlue")
-      ;; Some of the default ANSI terminal colors are hard to see on a dark background
+      (add-hook 'comint-mode-hook 'my-set-ansi-colors)))
+
+;; Some of the default ANSI terminal colors are hard to see on a dark background
+(defun my-set-ansi-colors ()
+    (progn
       (set-face-foreground 'ansi-color-red "tomato1")
       (set-face-foreground 'ansi-color-blue "RoyalBlue1")
-      (set-face-foreground 'ansi-color-magenta "magenta2")))
+      (set-face-foreground 'ansi-color-magenta "orchid1")))
 
 ;; For some reason the cursor color doesn't follow when you make-frame
 (defun set-cursor-hook (frame)
