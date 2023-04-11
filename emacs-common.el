@@ -652,6 +652,9 @@ point reaches the beginning or end of the buffer, stop there."
 ;; Swift
 (use-package swift-mode)
 
+;; Rust
+(use-package rust-mode)
+
 ;; show indentation with dotted lines
 (use-package highlight-indent-guides
   :hook (prog-mode . highlight-indent-guides-mode)
