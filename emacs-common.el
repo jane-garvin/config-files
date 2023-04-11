@@ -666,11 +666,12 @@ point reaches the beginning or end of the buffer, stop there."
 
 ;;;; ----- projects and spaces -----
 
-(use-package projectile
-  :init (projectile-mode 1)
-  :defer 2)
+; Disabling projectile because I haven't used it much.
+;; (use-package projectile
+;;   :init (projectile-mode 1)
+;;   :defer 2)
 
-(define-key projectile-mode-map (kbd "M-p") 'projectile-command-map)
+;; (define-key projectile-mode-map (kbd "M-p") 'projectile-command-map)
 
 ;; disabling perspective because it doesn't work properly with desktop-save; on
 ;; init it's showing 'Error (frameset): Wrong type argument: perspective,
