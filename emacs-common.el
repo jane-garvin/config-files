@@ -624,29 +624,30 @@ point reaches the beginning or end of the buffer, stop there."
   (set-face-background 'ediff-odd-diff-Ancestor "gray40"))
 
 ;; elpy for Python
-(use-package elpy
-  :init
-  (elpy-enable)
-  ;; Remove elpy's indentation highlighting because I use
-  ;; highlight-indent-guides for that.
-  (delete 'elpy-module-highlight-indentation elpy-modules)
-  ;; Note: the following lines require the extra executables to be installed via pip.
-  (setq elpy-rpc-backend "jedi")
-  (setq elpy-formatter "black")
-  (setq elpy-syntax-check-command "black")
-  :bind (:map elpy-mode-map
-              ;; Switch elpy's C-arrows and M-arrows
-              ("M-<up>" . elpy-nav-backward-block)
-              ("M-<down>" . elpy-nav-forward-block)
-              ("M-<right>" . elpy-nav-forward-indent)
-              ("M-<left>" . elpy-nav-backward-indent)
-              ("C-<up>" . elpy-nav-move-line-or-region-up)
-              ("C-<down>" . elpy-nav-move-line-or-region-down)
-              ("C-<right>" . elpy-nav-indent-shift-right)
-              ("C-<left>" . elpy-nav-indent-shift-left)
-              ;; Use jedi to goto definition
-              ("M-." . elpy-goto-definition))
-  :defer 2)
+;; Disabling for now because it may be causing emacs to hang.
+;; (use-package elpy
+;;   :init
+;;   (elpy-enable)
+;;   ;; Remove elpy's indentation highlighting because I use
+;;   ;; highlight-indent-guides for that.
+;;   (delete 'elpy-module-highlight-indentation elpy-modules)
+;;   ;; Note: the following lines require the extra executables to be installed via pip.
+;;   (setq elpy-rpc-backend "jedi")
+;;   (setq elpy-formatter "black")
+;;   (setq elpy-syntax-check-command "black")
+;;   :bind (:map elpy-mode-map
+;;               ;; Switch elpy's C-arrows and M-arrows
+;;               ("M-<up>" . elpy-nav-backward-block)
+;;               ("M-<down>" . elpy-nav-forward-block)
+;;               ("M-<right>" . elpy-nav-forward-indent)
+;;               ("M-<left>" . elpy-nav-backward-indent)
+;;               ("C-<up>" . elpy-nav-move-line-or-region-up)
+;;               ("C-<down>" . elpy-nav-move-line-or-region-down)
+;;               ("C-<right>" . elpy-nav-indent-shift-right)
+;;               ("C-<left>" . elpy-nav-indent-shift-left)
+;;               ;; Use jedi to goto definition
+;;               ("M-." . elpy-goto-definition))
+;;   :defer 2)
 
 ;; rnc-mode for RELAX NG
 (use-package rnc-mode)
@@ -970,10 +971,11 @@ prefix argument."
 (setq-default undo-outer-limit (* 120 1000 1000))
 ;; I don't want to have to type "yes"
 (fset 'yes-or-no-p 'y-or-n-p)
+;; Disabling scroll-preserve-screen-position and scroll-margin because they mess up scrolling in multi-term.
 ;; keep point in the middle when scrolling
-(setq-default scroll-preserve-screen-position t)
+;(setq-default scroll-preserve-screen-position t)
 ;; scroll for visibility when within 5 lines of top or bottom
-(setq-default scroll-margin 5)
+;(setq-default scroll-margin 5)
 
 ;; enable emacs to use the Mac system clipboard for cut, copy, and paste
 (defun paste-to-osx (text &optional push)
