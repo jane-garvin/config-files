@@ -1,6 +1,6 @@
 # Use this by copying it to ~/.config/helix/config.toml
 
-theme = "catppuccin-macchiato"
+theme = "catppuccin_macchiato"
 
 [editor]
 auto-save = true
