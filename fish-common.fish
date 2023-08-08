@@ -9,3 +9,5 @@ if status is-interactive
     abbr -a -- gs 'git status'
     abbr -a -- gl 'git log --abbrev-commit --graph --all'
 end
+
+export LESS='--RAW-CONTROL-CHARS'
