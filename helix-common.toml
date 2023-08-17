@@ -12,6 +12,9 @@ normal = "block"
 [editor.indent-guides]
 render = true
 
+[editor.file-picker]
+hidden = false  # Don't ignore hidden files
+
 [editor.soft-wrap]
 enable = true
 
