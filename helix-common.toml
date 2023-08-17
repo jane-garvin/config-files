@@ -18,6 +18,12 @@ hidden = false  # Don't ignore hidden files
 [editor.soft-wrap]
 enable = true
 
+[editor.whitespace.render]
+nbsp = "all"
+newline = "all"
+space = "none"
+tab = "all"
+
 [keys.insert]
 up = "no_op"
 down = "no_op"
