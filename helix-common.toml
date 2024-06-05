@@ -33,3 +33,6 @@ pageup = "no_op"
 pagedown = "no_op"
 home = "no_op"
 end = "no_op"
+
+[keys.normal]
+X = ["extend_line_up", "extend_to_line_bounds"]
