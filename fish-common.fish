@@ -8,6 +8,5 @@ if status is-interactive
     abbr -a -- gf 'git fetch --all'
     abbr -a -- gs 'git status'
     abbr -a -- gl 'git log --abbrev-commit --graph --all'
+    set -x LESS --RAW-CONTROL-CHARS
 end
-
-export LESS='--RAW-CONTROL-CHARS'
